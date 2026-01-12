@@ -1,0 +1,330 @@
+[
+  {
+    "iata": "LIS",
+    "city": "Lisbon",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Humberto Delgado Airport"
+  },
+  {
+    "iata": "OPO",
+    "city": "Porto",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Francisco Sá Carneiro Airport"
+  },
+  {
+    "iata": "BCN",
+    "city": "Barcelona",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Barcelona–El Prat Airport"
+  },
+  {
+    "iata": "MAD",
+    "city": "Madrid",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Adolfo Suárez Madrid–Barajas Airport"
+  },
+  {
+    "iata": "CDG",
+    "city": "Paris",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Charles de Gaulle Airport"
+  },
+  {
+    "iata": "ORY",
+    "city": "Paris",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Orly Airport"
+  },
+  {
+    "iata": "LHR",
+    "city": "London",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Heathrow Airport"
+  },
+  {
+    "iata": "LGW",
+    "city": "London",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Gatwick Airport"
+  },
+  {
+    "iata": "AMS",
+    "city": "Amsterdam",
+    "country": "Netherlands",
+    "country_code": "NL",
+    "continent": "Europe",
+    "airport_name": "Amsterdam Airport Schiphol"
+  },
+  {
+    "iata": "FRA",
+    "city": "Frankfurt",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Frankfurt Airport"
+  },
+  {
+    "iata": "MUC",
+    "city": "Munich",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Munich Airport"
+  },
+  {
+    "iata": "ZRH",
+    "city": "Zurich",
+    "country": "Switzerland",
+    "country_code": "CH",
+    "continent": "Europe",
+    "airport_name": "Zurich Airport"
+  },
+  {
+    "iata": "MXP",
+    "city": "Milan",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Milan Malpensa Airport"
+  },
+  {
+    "iata": "FCO",
+    "city": "Rome",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Rome–Fiumicino Airport"
+  },
+  {
+    "iata": "DUB",
+    "city": "Dublin",
+    "country": "Ireland",
+    "country_code": "IE",
+    "continent": "Europe",
+    "airport_name": "Dublin Airport"
+  },
+  {
+    "iata": "CPH",
+    "city": "Copenhagen",
+    "country": "Denmark",
+    "country_code": "DK",
+    "continent": "Europe",
+    "airport_name": "Copenhagen Airport"
+  },
+  {
+    "iata": "ARN",
+    "city": "Stockholm",
+    "country": "Sweden",
+    "country_code": "SE",
+    "continent": "Europe",
+    "airport_name": "Stockholm Arlanda Airport"
+  },
+  {
+    "iata": "OSL",
+    "city": "Oslo",
+    "country": "Norway",
+    "country_code": "NO",
+    "continent": "Europe",
+    "airport_name": "Oslo Airport"
+  },
+  {
+    "iata": "HEL",
+    "city": "Helsinki",
+    "country": "Finland",
+    "country_code": "FI",
+    "continent": "Europe",
+    "airport_name": "Helsinki Airport"
+  },
+  {
+    "iata": "ATH",
+    "city": "Athens",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Athens International Airport"
+  },
+  {
+    "iata": "IST",
+    "city": "Istanbul",
+    "country": "Türkiye",
+    "country_code": "TR",
+    "continent": "Europe",
+    "airport_name": "Istanbul Airport"
+  },
+  {
+    "iata": "JFK",
+    "city": "New York",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "John F. Kennedy International Airport"
+  },
+  {
+    "iata": "EWR",
+    "city": "Newark",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Newark Liberty International Airport"
+  },
+  {
+    "iata": "BOS",
+    "city": "Boston",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Logan International Airport"
+  },
+  {
+    "iata": "MIA",
+    "city": "Miami",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Miami International Airport"
+  },
+  {
+    "iata": "YYZ",
+    "city": "Toronto",
+    "country": "Canada",
+    "country_code": "CA",
+    "continent": "North America",
+    "airport_name": "Toronto Pearson International Airport"
+  },
+  {
+    "iata": "GRU",
+    "city": "São Paulo",
+    "country": "Brazil",
+    "country_code": "BR",
+    "continent": "South America",
+    "airport_name": "São Paulo/Guarulhos International Airport"
+  },
+  {
+    "iata": "EZE",
+    "city": "Buenos Aires",
+    "country": "Argentina",
+    "country_code": "AR",
+    "continent": "South America",
+    "airport_name": "Ministro Pistarini International Airport"
+  },
+  {
+    "iata": "SCL",
+    "city": "Santiago",
+    "country": "Chile",
+    "country_code": "CL",
+    "continent": "South America",
+    "airport_name": "Arturo Merino Benítez International Airport"
+  },
+  {
+    "iata": "NRT",
+    "city": "Tokyo",
+    "country": "Japan",
+    "country_code": "JP",
+    "continent": "Asia",
+    "airport_name": "Narita International Airport"
+  },
+  {
+    "iata": "HND",
+    "city": "Tokyo",
+    "country": "Japan",
+    "country_code": "JP",
+    "continent": "Asia",
+    "airport_name": "Haneda Airport"
+  },
+  {
+    "iata": "ICN",
+    "city": "Seoul",
+    "country": "South Korea",
+    "country_code": "KR",
+    "continent": "Asia",
+    "airport_name": "Incheon International Airport"
+  },
+  {
+    "iata": "SIN",
+    "city": "Singapore",
+    "country": "Singapore",
+    "country_code": "SG",
+    "continent": "Asia",
+    "airport_name": "Singapore Changi Airport"
+  },
+  {
+    "iata": "DXB",
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "country_code": "AE",
+    "continent": "Asia",
+    "airport_name": "Dubai International Airport"
+  },
+  {
+    "iata": "BKK",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "country_code": "TH",
+    "continent": "Asia",
+    "airport_name": "Suvarnabhumi Airport"
+  },
+  {
+    "iata": "JNB",
+    "city": "Johannesburg",
+    "country": "South Africa",
+    "country_code": "ZA",
+    "continent": "Africa",
+    "airport_name": "O. R. Tambo International Airport"
+  },
+  {
+    "iata": "CAI",
+    "city": "Cairo",
+    "country": "Egypt",
+    "country_code": "EG",
+    "continent": "Africa",
+    "airport_name": "Cairo International Airport"
+  },
+  {
+    "iata": "NBO",
+    "city": "Nairobi",
+    "country": "Kenya",
+    "country_code": "KE",
+    "continent": "Africa",
+    "airport_name": "Jomo Kenyatta International Airport"
+  },
+  {
+    "iata": "SYD",
+    "city": "Sydney",
+    "country": "Australia",
+    "country_code": "AU",
+    "continent": "Oceania",
+    "airport_name": "Sydney Kingsford Smith Airport"
+  },
+  {
+    "iata": "MEL",
+    "city": "Melbourne",
+    "country": "Australia",
+    "country_code": "AU",
+    "continent": "Oceania",
+    "airport_name": "Melbourne Airport"
+  },
+  {
+    "iata": "AKL",
+    "city": "Auckland",
+    "country": "New Zealand",
+    "country_code": "NZ",
+    "continent": "Oceania",
+    "airport_name": "Auckland Airport"
+  }
+]

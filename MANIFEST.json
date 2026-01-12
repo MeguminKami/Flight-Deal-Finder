@@ -1,0 +1,85 @@
+{
+  "project": "Flight Deal Finder",
+  "version": "1.1.0",
+  "files": [
+    {
+      "name": "app.py",
+      "type": "application",
+      "lines": 698
+    },
+    {
+      "name": "api_client.py",
+      "type": "module",
+      "lines": 314
+    },
+    {
+      "name": "models.py",
+      "type": "module",
+      "lines": 124
+    },
+    {
+      "name": "airports.py",
+      "type": "module",
+      "lines": 100
+    },
+    {
+      "name": "cache.py",
+      "type": "module",
+      "lines": 159
+    },
+    {
+      "name": "airports.json",
+      "type": "data",
+      "records": 41
+    },
+    {
+      "name": "requirements.txt",
+      "type": "config",
+      "lines": 4
+    },
+    {
+      "name": ".env.example",
+      "type": "config",
+      "lines": 2
+    },
+    {
+      "name": "README.md",
+      "type": "documentation",
+      "lines": 322
+    },
+    {
+      "name": "airports_validator.py",
+      "type": "module",
+      "lines": 156
+    },
+    {
+      "name": "setup.py",
+      "type": "utility",
+      "lines": 73
+    },
+    {
+      "name": "styles.css",
+      "type": "asset",
+      "lines": 1829
+    },
+    {
+      "name": "static/theme.css",
+      "type": "asset",
+      "lines": 206
+    }
+  ],
+  "requirements": [
+    "Python 3.11+",
+    "Travelpayouts API token"
+  ],
+  "features": [
+    "Travelpayouts API integration",
+    "NiceGUI modern UI",
+    "SQLite caching",
+    "Rate limiting & retries",
+    "77 airports across 6 continents",
+    "EUR currency display",
+    "Pagination",
+    "Flag emojis"
+  ]
+}
