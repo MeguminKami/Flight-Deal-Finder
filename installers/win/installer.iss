@@ -108,7 +108,10 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopShortcut}"; GroupDescription
 
 [Files]
 ; Main application files (from PyInstaller output)
-Source: "dist\{#AppNameNoSpaces}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "dist\\{#AppNameNoSpaces}\\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+; Optional config template (non-secret)
+Source: "..\\..\\config.env.example"; DestDir: "{app}"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -200,4 +203,3 @@ function IsWindows10OrNewer(): Boolean;
 begin
   Result := (GetWindowsVersion >= $0A000000);
 end;
-

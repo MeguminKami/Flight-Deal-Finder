@@ -87,6 +87,7 @@ a = Analysis(
         # App-specific data files
         (os.path.join(PROJECT_ROOT, 'static'), 'static'),
         (os.path.join(PROJECT_ROOT, 'airports.json'), '.'),
+        (os.path.join(PROJECT_ROOT, 'config.env.example'), '.'),
         # NiceGUI data files
         *nicegui_datas,
     ],
@@ -151,4 +152,3 @@ coll = COLLECT(
     upx_exclude=[],
     name=APP_NAME,
 )
-

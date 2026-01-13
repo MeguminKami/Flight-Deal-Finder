@@ -25,6 +25,8 @@ from models import FlightDeal
 from cache import get_cache
 import asyncio
 
+from config import load_config, config_help_text
+
 
 def get_resource_path(relative_path: str) -> Path:
     """Get the absolute path to a resource, works for dev and PyInstaller."""
@@ -37,9 +39,9 @@ def get_resource_path(relative_path: str) -> Path:
     return base_path / relative_path
 
 
-load_dotenv()
-
-API_TOKEN = os.getenv('TRAVELPAYOUTS_TOKEN', '')
+# Remove implicit CWD-based dotenv loading; use explicit config discovery instead.
+_loaded = load_config()
+API_TOKEN = _loaded.token
 ITEMS_PER_PAGE = 10
 
 airport_db = get_airport_db()
@@ -373,7 +375,7 @@ class FlightSearchApp:
             return
 
         if not API_TOKEN:
-            self._safe_notify('API token not configured. Set TRAVELPAYOUTS_TOKEN in .env', 'negative')
+            self._safe_notify(config_help_text(), 'negative')
             return
 
         global api_client
@@ -920,8 +922,8 @@ nicegui_app.add_static_files('/static', str(get_resource_path('static')))
 
 if __name__ in {'__main__', '__mp_main__'}:
     if not API_TOKEN:
-        print('WARNING: TRAVELPAYOUTS_TOKEN not set in .env file')
-        print('Please create a .env file with your API token.')
+        print('WARNING: TRAVELPAYOUTS_TOKEN not configured')
+        print(config_help_text())
 
     ui.run(
         title='Flight Deal Finder',
