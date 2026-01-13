@@ -3,9 +3,22 @@ Airport data management module.
 """
 
 import json
+import sys
 from pathlib import Path
 from typing import List, Optional, Dict
 from models import Airport
+
+
+def get_resource_path(relative_path: str) -> Path:
+    """Get the absolute path to a resource, works for dev and PyInstaller."""
+    if hasattr(sys, '_MEIPASS'):
+        # Running as bundled executable
+        base_path = Path(sys._MEIPASS)
+    else:
+        # Running in development
+        base_path = Path(__file__).parent
+    return base_path / relative_path
+
 
 class AirportDatabase:
     """Manages the airport dataset."""
@@ -21,7 +34,7 @@ class AirportDatabase:
 
     def __init__(self, data_file: str = "airports.json"):
         """Load airport data from JSON file."""
-        self.data_file = Path(data_file)
+        self.data_file = get_resource_path(data_file)
         self.airports: List[Airport] = []
         self._airport_map: Dict[str, Airport] = {}
         self._load_data()

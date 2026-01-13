@@ -4,6 +4,16 @@ A local tool to discover cheap round-trip flights using Travelpayouts cached dat
 '''
 
 import os
+import sys
+from pathlib import Path
+
+# Fix for PyInstaller no-console mode: stdout/stderr are None which breaks uvicorn logging
+# This must be done before importing uvicorn/nicegui
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, 'w')
+if sys.stderr is None:
+    sys.stderr = open(os.devnull, 'w')
+
 from datetime import datetime, timedelta
 from typing import List, Optional
 from urllib.parse import urlencode
@@ -14,6 +24,18 @@ from airports import get_airport_db
 from models import FlightDeal
 from cache import get_cache
 import asyncio
+
+
+def get_resource_path(relative_path: str) -> Path:
+    """Get the absolute path to a resource, works for dev and PyInstaller."""
+    if hasattr(sys, '_MEIPASS'):
+        # Running as bundled executable
+        base_path = Path(sys._MEIPASS)
+    else:
+        # Running in development
+        base_path = Path(__file__).parent
+    return base_path / relative_path
+
 
 load_dotenv()
 
@@ -735,117 +757,154 @@ class FlightSearchApp:
                     ui.label(answer).classes('text-muted').style('line-height: 1.6;')
 
     def _create_footer(self):
-        '''Create premium SaaS-style footer with disclaimer and credits.'''
-        with ui.element('footer').classes('footer'):
-            ui.html('<div class="footer-shine"></div>', sanitize=False)
 
-            with ui.column().classes('theme-card'):
-                with ui.column().classes('footer-container'):
-                    with ui.element('div').classes('footer-grid'):
-
-                        with ui.element('div').classes('footer-panel is-info'):
-                            with ui.element('div').classes('footer-panel-header'):
-                                ui.html('''
-                                    <svg class="footer-panel-icon" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
-                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/>
-                                    </svg>
-                                ''', sanitize=False)
-                                ui.label('Important Notice').classes('footer-panel-title')
-
-                            with ui.element('p').classes('footer-panel-text'):
-                                ui.html('''
-                                    Flight prices displayed are <strong>cached data</strong> from the Travelpayouts API, 
-                                    typically 2–7 days old. Prices are <em>not real-time</em> and may differ from current rates. 
-                                    Always verify pricing on the booking site before purchasing.
-                                ''', sanitize=False)
-
-                            with ui.element('div').classes('footer-panel-badge').style('margin-top: 16px;'):
-                                ui.html('''
-                                    <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12">
-                                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
-                                    </svg>
-                                ''', sanitize=False)
-                                ui.label('Updated every 2–7 days · For inspiration only')
-
-                        with ui.element('div').classes('footer-section is-powered'):
-                            ui.html('<span class="footer-section-label">Powered By</span>', sanitize=False)
-
-                            with ui.element('nav').classes('footer-pills'):
-                                with ui.link(target='https://www.travelpayouts.com', new_tab=True).classes('footer-pill'):
-                                    ui.html('''
-                                        <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16" fill="none">
-                                            <path fill="#00BCD4" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                                            <path stroke="#00BCD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
-                                        </svg>
-                                        <span class="footer-pill-label">Travelpayouts</span>
-                                    ''', sanitize=False)
-
-                                with ui.link(target='https://developers.amadeus.com/', new_tab=True).classes('footer-pill'):
-                                    ui.html('''
-                                        <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
-                                            <circle cx="12" cy="12" r="10" fill="#1B69B6"/>
-                                            <path d="M12 6l-6 10h3l1-2h4l1 2h3L12 6zm0 3.5L13.5 13h-3L12 9.5z" fill="white"/>
-                                        </svg>
-                                        <span class="footer-pill-label">Amadeus</span>
-                                    ''', sanitize=False)
-
-                                with ui.link(target='https://www.aviasales.com', new_tab=True).classes('footer-pill'):
-                                    ui.html('''
-                                        <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
-                                            <path fill="#FF6D00" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-                                        </svg>
-                                        <span class="footer-pill-label">Aviasales</span>
-                                    ''', sanitize=False)
-
-                                with ui.link(target='https://www.google.com/travel/flights', new_tab=True).classes('footer-pill'):
-                                    ui.html('''
-                                        <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
-                                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                                        </svg>
-                                        <span class="footer-pill-label">Google Flights</span>
-                                    ''', sanitize=False)
-
-                                with ui.link(target='https://nicegui.io', new_tab=True).classes('footer-pill'):
-                                    ui.html('''
-                                        <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
-                                            <rect width="24" height="24" rx="6" fill="#5898D4"/>
-                                            <path d="M7 17V7h2l6 7V7h2v10h-2l-6-7v7H7z" fill="white"/>
-                                        </svg>
-                                        <span class="footer-pill-label">NiceGUI</span>
-                                    ''', sanitize=False)
-
-                                with ui.link(target='https://www.python.org', new_tab=True).classes('footer-pill'):
-                                    ui.html('''
-                                        <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
-                                            <path fill="#3776AB" d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.9S0 5.789 0 11.969c0 6.18 3.403 5.96 3.403 5.96h2.03v-2.867s-.109-3.42 3.35-3.42h5.766s3.24.052 3.24-3.148V3.202S18.28 0 11.913 0zM8.708 1.85c.578 0 1.046.47 1.046 1.052 0 .581-.468 1.051-1.046 1.051-.579 0-1.046-.47-1.046-1.051 0-.582.467-1.052 1.046-1.052z"/>
-                                            <path fill="#FFD43B" d="M12.087 24c6.093 0 5.713-2.656 5.713-2.656l-.007-2.752h-5.814v-.826h8.123s3.9.445 3.9-5.735c0-6.18-3.404-5.96-3.404-5.96h-2.03v2.867s.109 3.42-3.35 3.42H9.452s-3.24-.052-3.24 3.148v5.292S5.72 24 12.087 24zm3.206-1.85c-.578 0-1.046-.47-1.046-1.052 0-.581.468-1.051 1.046-1.051.579 0 1.046.47 1.046 1.051 0 .582-.467 1.052-1.046 1.052z"/>
-                                        </svg>
-                                        <span class="footer-pill-label">Python</span>
-                                    ''', sanitize=False)
-
-                    ui.html('<div class="footer-separator"></div>', sanitize=False)
-
-                    with ui.element('div').classes('footer-bottom'):
-                        ui.html(f'''
-                            <p class="footer-copyright">
-                                Copyright © {datetime.now().year} All rights reserved to <span class="footer-author">João Ferreira</span>
-                            </p>
-                        ''', sanitize=False)
+        with ui.column().classes('footer-container'):
+            with ui.element('div').classes('footer-grid'):
+                with ui.element('div').classes('footer-panel is-info'):
+                    with ui.element('div').classes('footer-panel-header'):
                         ui.html('''
-                            <p class="footer-tagline">
-                                Built with <span class="footer-heart">❤️</span> for Sofia & travel enthusiasts
-                                <span class="footer-location">
-                                    <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10">
-                                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                                    </svg>
-                                    Paris, 12 Aug - 16 Aug 2025
-                                </span>
-                            </p>
+                            <svg class="footer-panel-icon" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/>
+                            </svg>
                         ''', sanitize=False)
+                        ui.label('Important Notice').classes('footer-panel-title')
+
+                    with ui.element('p').classes('footer-panel-text'):
+                        ui.html('''
+                            Flight prices displayed are <strong>cached data</strong> from the Travelpayouts API, 
+                            typically 2–7 days old. Prices are <em>not real-time</em> and may differ from current rates. 
+                            Always verify pricing on the booking site before purchasing.
+                        ''', sanitize=False)
+
+                    with ui.element('div').classes('footer-panel-badge').style('margin-top: 16px;'):
+                        ui.html('''
+                            <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12">
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                            </svg>
+                        ''', sanitize=False)
+                        ui.label('Updated every 2–7 days · For inspiration only')
+
+                with ui.element('div').classes('footer-section is-powered'):
+                    ui.html('<span class="footer-section-label">Powered By</span>', sanitize=False)
+
+                    with ui.element('nav').classes('footer-pills'):
+                        with ui.link(target='https://www.travelpayouts.com', new_tab=True).classes('footer-pill'):
+                            ui.html('''
+                                <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16" fill="none">
+                                    <path fill="#00BCD4" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                    <path stroke="#00BCD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                </svg>
+                                <span class="footer-pill-label">Travelpayouts</span>
+                            ''', sanitize=False)
+
+                        with ui.link(target='https://developers.amadeus.com/', new_tab=True).classes('footer-pill'):
+                            ui.html('''
+                                <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
+                                    <circle cx="12" cy="12" r="10" fill="#1B69B6"/>
+                                    <path d="M12 6l-6 10h3l1-2h4l1 2h3L12 6zm0 3.5L13.5 13h-3L12 9.5z" fill="white"/>
+                                </svg>
+                                <span class="footer-pill-label">Amadeus</span>
+                            ''', sanitize=False)
+
+                        with ui.link(target='https://www.aviasales.com', new_tab=True).classes('footer-pill'):
+                            ui.html('''
+                                <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
+                                    <path fill="#FF6D00" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                                </svg>
+                                <span class="footer-pill-label">Aviasales</span>
+                            ''', sanitize=False)
+
+                        with ui.link(target='https://www.google.com/travel/flights', new_tab=True).classes('footer-pill'):
+                            ui.html('''
+                                <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                                <span class="footer-pill-label">Google Flights</span>
+                            ''', sanitize=False)
+
+                        with ui.link(target='https://nicegui.io', new_tab=True).classes('footer-pill'):
+                            ui.html('''
+                                <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
+                                    <rect width="24" height="24" rx="6" fill="#5898D4"/>
+                                    <path d="M7 17V7h2l6 7V7h2v10h-2l-6-7v7H7z" fill="white"/>
+                                </svg>
+                                <span class="footer-pill-label">NiceGUI</span>
+                            ''', sanitize=False)
+
+                        with ui.link(target='https://www.python.org', new_tab=True).classes('footer-pill'):
+                            ui.html('''
+                                <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
+                                    <path fill="#3776AB" d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.9S0 5.789 0 11.969c0 6.18 3.403 5.96 3.403 5.96h2.03v-2.867s-.109-3.42 3.35-3.42h5.766s3.24.052 3.24-3.148V3.202S18.28 0 11.913 0zM8.708 1.85c.578 0 1.046.47 1.046 1.052 0 .581-.468 1.051-1.046 1.051-.579 0-1.046-.47-1.046-1.051 0-.582.467-1.052 1.046-1.052z"/>
+                                    <path fill="#FFD43B" d="M12.087 24c6.093 0 5.713-2.656 5.713-2.656l-.007-2.752h-5.814v-.826h8.123s3.9.445 3.9-5.735c0-6.18-3.404-5.96-3.404-5.96h-2.03v2.867s.109 3.42-3.35 3.42H9.452s-3.24-.052-3.24 3.148v5.292S5.72 24 12.087 24zm3.206-1.85c-.578 0-1.046-.47-1.046-1.052 0-.581.468-1.051 1.046-1.051.579 0 1.046.47 1.046 1.051 0 .582-.467 1.052-1.046 1.052z"/>
+                                </svg>
+                                <span class="footer-pill-label">Python</span>
+                            ''', sanitize=False)
+
+            ui.html('<div class="footer-separator"></div>', sanitize=False)
+
+            with ui.element('div').classes('footer-bottom'):
+                ui.html(f'''
+                    <p class="footer-copyright">
+                        Copyright © {datetime.now().year} All rights reserved to <span class="footer-author">João Ferreira</span>
+                    </p>
+                ''', sanitize=False)
+                ui.html('''
+                    <p class="footer-tagline">
+                        Built with <span class="footer-heart">❤️</span> for Sofia & travel enthusiasts
+                        <span class="footer-location">
+                            <svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                            </svg>
+                            Paris, 12 Aug - 16 Aug 2025
+                        </span>
+                    </p>
+                ''', sanitize=False)
+
+
+# ============================================================================
+# Auto-shutdown functionality
+# ============================================================================
+SHUTDOWN_DELAY = 5  # seconds of inactivity before shutdown
+
+shutdown_task = None
+connected_clients = 0
+
+
+async def schedule_shutdown():
+    """Shutdown server after delay if no clients connected."""
+    await asyncio.sleep(SHUTDOWN_DELAY)
+    if connected_clients == 0:
+        print(f"No clients connected for {SHUTDOWN_DELAY}s. Shutting down...")
+        nicegui_app.shutdown()
+
+
+@nicegui_app.on_connect
+def on_client_connect():
+    """Cancel scheduled shutdown when a client connects."""
+    global shutdown_task, connected_clients
+    connected_clients += 1
+    if shutdown_task is not None:
+        shutdown_task.cancel()
+        shutdown_task = None
+
+
+@nicegui_app.on_disconnect
+def on_client_disconnect():
+    """Schedule shutdown when all clients disconnect."""
+    global shutdown_task, connected_clients
+    connected_clients = max(0, connected_clients - 1)
+
+    async def check_and_schedule():
+        global shutdown_task
+        await asyncio.sleep(1)  # Brief delay to allow reconnections
+        if connected_clients == 0:
+            shutdown_task = asyncio.create_task(schedule_shutdown())
+
+    asyncio.create_task(check_and_schedule())
 
 
 @ui.page('/')
@@ -856,7 +915,7 @@ def index():
 
 
 # Serve static CSS - use add_static_file for a single file
-nicegui_app.add_static_files('/static', 'static')
+nicegui_app.add_static_files('/static', str(get_resource_path('static')))
 
 
 if __name__ in {'__main__', '__mp_main__'}:

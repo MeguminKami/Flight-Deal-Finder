@@ -1,0 +1,3764 @@
+[
+  {
+    "iata": "ALG",
+    "city": "Algiers",
+    "country": "Algeria",
+    "country_code": "DZ",
+    "continent": "Africa",
+    "airport_name": "Houari Boumediene Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CAI",
+    "city": "Cairo",
+    "country": "Egypt",
+    "country_code": "EG",
+    "continent": "Africa",
+    "airport_name": "Cairo International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ADD",
+    "city": "Addis Ababa",
+    "country": "Ethiopia",
+    "country_code": "ET",
+    "continent": "Africa",
+    "airport_name": "Addis Ababa Bole International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ACC",
+    "city": "Accra",
+    "country": "Ghana",
+    "country_code": "GH",
+    "continent": "Africa",
+    "airport_name": "Kotoka International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "NBO",
+    "city": "Nairobi",
+    "country": "Kenya",
+    "country_code": "KE",
+    "continent": "Africa",
+    "airport_name": "Jomo Kenyatta International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ROB",
+    "city": "Monrovia",
+    "country": "Liberia",
+    "country_code": "LR",
+    "continent": "Africa",
+    "airport_name": "Roberts International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CMN",
+    "city": "Casablanca",
+    "country": "Morocco",
+    "country_code": "MA",
+    "continent": "Africa",
+    "airport_name": "Mohammed V International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "RAK",
+    "city": "Marrakesh",
+    "country": "Morocco",
+    "country_code": "MA",
+    "continent": "Africa",
+    "airport_name": "Marrakesh Menara Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ABV",
+    "city": "Abuja",
+    "country": "Nigeria",
+    "country_code": "NG",
+    "continent": "Africa",
+    "airport_name": "Nnamdi Azikiwe International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LOS",
+    "city": "Lagos",
+    "country": "Nigeria",
+    "country_code": "NG",
+    "continent": "Africa",
+    "airport_name": "Murtala Muhammed International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KGL",
+    "city": "Kigali",
+    "country": "Rwanda",
+    "country_code": "RW",
+    "continent": "Africa",
+    "airport_name": "Kigali International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DKR",
+    "city": "Dakar",
+    "country": "Senegal",
+    "country_code": "SN",
+    "continent": "Africa",
+    "airport_name": "Blaise Diagne International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CPT",
+    "city": "Cape Town",
+    "country": "South Africa",
+    "country_code": "ZA",
+    "continent": "Africa",
+    "airport_name": "Cape Town International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "JNB",
+    "city": "Johannesburg",
+    "country": "South Africa",
+    "country_code": "ZA",
+    "continent": "Africa",
+    "airport_name": "O. R. Tambo International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DAR",
+    "city": "Dar es Salaam",
+    "country": "Tanzania",
+    "country_code": "TZ",
+    "continent": "Africa",
+    "airport_name": "Julius Nyerere International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TUN",
+    "city": "Tunis",
+    "country": "Tunisia",
+    "country_code": "TN",
+    "continent": "Africa",
+    "airport_name": "Tunis–Carthage International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "EBB",
+    "city": "Entebbe",
+    "country": "Uganda",
+    "country_code": "UG",
+    "continent": "Africa",
+    "airport_name": "Entebbe International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BAH",
+    "city": "Manama",
+    "country": "Bahrain",
+    "country_code": "BH",
+    "continent": "Asia",
+    "airport_name": "Bahrain International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PNH",
+    "city": "Phnom Penh",
+    "country": "Cambodia",
+    "country_code": "KH",
+    "continent": "Asia",
+    "airport_name": "Phnom Penh International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PEK",
+    "city": "Beijing",
+    "country": "China",
+    "country_code": "CN",
+    "continent": "Asia",
+    "airport_name": "Beijing Capital International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PKX",
+    "city": "Beijing",
+    "country": "China",
+    "country_code": "CN",
+    "continent": "Asia",
+    "airport_name": "Beijing Daxing International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CAN",
+    "city": "Guangzhou",
+    "country": "China",
+    "country_code": "CN",
+    "continent": "Asia",
+    "airport_name": "Guangzhou Baiyun International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PVG",
+    "city": "Shanghai",
+    "country": "China",
+    "country_code": "CN",
+    "continent": "Asia",
+    "airport_name": "Shanghai Pudong International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SZX",
+    "city": "Shenzhen",
+    "country": "China",
+    "country_code": "CN",
+    "continent": "Asia",
+    "airport_name": "Shenzhen Bao'an International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HKG",
+    "city": "Hong Kong",
+    "country": "Hong Kong",
+    "country_code": "HK",
+    "continent": "Asia",
+    "airport_name": "Hong Kong International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BLR",
+    "city": "Bengaluru",
+    "country": "India",
+    "country_code": "IN",
+    "continent": "Asia",
+    "airport_name": "Kempegowda International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MAA",
+    "city": "Chennai",
+    "country": "India",
+    "country_code": "IN",
+    "continent": "Asia",
+    "airport_name": "Chennai International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HYD",
+    "city": "Hyderabad",
+    "country": "India",
+    "country_code": "IN",
+    "continent": "Asia",
+    "airport_name": "Rajiv Gandhi International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "COK",
+    "city": "Kochi",
+    "country": "India",
+    "country_code": "IN",
+    "continent": "Asia",
+    "airport_name": "Cochin International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CCU",
+    "city": "Kolkata",
+    "country": "India",
+    "country_code": "IN",
+    "continent": "Asia",
+    "airport_name": "Netaji Subhas Chandra Bose International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BOM",
+    "city": "Mumbai",
+    "country": "India",
+    "country_code": "IN",
+    "continent": "Asia",
+    "airport_name": "Chhatrapati Shivaji Maharaj International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DEL",
+    "city": "New Delhi",
+    "country": "India",
+    "country_code": "IN",
+    "continent": "Asia",
+    "airport_name": "Indira Gandhi International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DPS",
+    "city": "Bali",
+    "country": "Indonesia",
+    "country_code": "ID",
+    "continent": "Asia",
+    "airport_name": "Ngurah Rai International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CGK",
+    "city": "Jakarta",
+    "country": "Indonesia",
+    "country_code": "ID",
+    "continent": "Asia",
+    "airport_name": "Soekarno–Hatta International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "IKA",
+    "city": "Tehran",
+    "country": "Iran",
+    "country_code": "IR",
+    "continent": "Asia",
+    "airport_name": "Imam Khomeini International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TLV",
+    "city": "Tel Aviv",
+    "country": "Israel",
+    "country_code": "IL",
+    "continent": "Asia",
+    "airport_name": "Ben Gurion Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FUK",
+    "city": "Fukuoka",
+    "country": "Japan",
+    "country_code": "JP",
+    "continent": "Asia",
+    "airport_name": "Fukuoka Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "NGO",
+    "city": "Nagoya",
+    "country": "Japan",
+    "country_code": "JP",
+    "continent": "Asia",
+    "airport_name": "Chubu Centrair International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ITM",
+    "city": "Osaka",
+    "country": "Japan",
+    "country_code": "JP",
+    "continent": "Asia",
+    "airport_name": "Itami Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KIX",
+    "city": "Osaka",
+    "country": "Japan",
+    "country_code": "JP",
+    "continent": "Asia",
+    "airport_name": "Kansai International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HND",
+    "city": "Tokyo",
+    "country": "Japan",
+    "country_code": "JP",
+    "continent": "Asia",
+    "airport_name": "Tokyo Haneda Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "NRT",
+    "city": "Tokyo",
+    "country": "Japan",
+    "country_code": "JP",
+    "continent": "Asia",
+    "airport_name": "Narita International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AMM",
+    "city": "Amman",
+    "country": "Jordan",
+    "country_code": "JO",
+    "continent": "Asia",
+    "airport_name": "Queen Alia International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KWI",
+    "city": "Kuwait City",
+    "country": "Kuwait",
+    "country_code": "KW",
+    "continent": "Asia",
+    "airport_name": "Kuwait International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "VTE",
+    "city": "Vientiane",
+    "country": "Laos",
+    "country_code": "LA",
+    "continent": "Asia",
+    "airport_name": "Wattay International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BEY",
+    "city": "Beirut",
+    "country": "Lebanon",
+    "country_code": "LB",
+    "continent": "Asia",
+    "airport_name": "Beirut–Rafic Hariri International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KUL",
+    "city": "Kuala Lumpur",
+    "country": "Malaysia",
+    "country_code": "MY",
+    "continent": "Asia",
+    "airport_name": "Kuala Lumpur International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MCT",
+    "city": "Muscat",
+    "country": "Oman",
+    "country_code": "OM",
+    "continent": "Asia",
+    "airport_name": "Muscat International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CEB",
+    "city": "Cebu",
+    "country": "Philippines",
+    "country_code": "PH",
+    "continent": "Asia",
+    "airport_name": "Mactan–Cebu International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MNL",
+    "city": "Manila",
+    "country": "Philippines",
+    "country_code": "PH",
+    "continent": "Asia",
+    "airport_name": "Ninoy Aquino International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DOH",
+    "city": "Doha",
+    "country": "Qatar",
+    "country_code": "QA",
+    "continent": "Asia",
+    "airport_name": "Hamad International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "JED",
+    "city": "Jeddah",
+    "country": "Saudi Arabia",
+    "country_code": "SA",
+    "continent": "Asia",
+    "airport_name": "King Abdulaziz International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "RUH",
+    "city": "Riyadh",
+    "country": "Saudi Arabia",
+    "country_code": "SA",
+    "continent": "Asia",
+    "airport_name": "King Khalid International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SIN",
+    "city": "Singapore",
+    "country": "Singapore",
+    "country_code": "SG",
+    "continent": "Asia",
+    "airport_name": "Singapore Changi Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GMP",
+    "city": "Seoul",
+    "country": "South Korea",
+    "country_code": "KR",
+    "continent": "Asia",
+    "airport_name": "Gimpo International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ICN",
+    "city": "Seoul",
+    "country": "South Korea",
+    "country_code": "KR",
+    "continent": "Asia",
+    "airport_name": "Incheon International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TPE",
+    "city": "Taipei",
+    "country": "Taiwan",
+    "country_code": "TW",
+    "continent": "Asia",
+    "airport_name": "Taiwan Taoyuan International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BKK",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "country_code": "TH",
+    "continent": "Asia",
+    "airport_name": "Suvarnabhumi Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DMK",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "country_code": "TH",
+    "continent": "Asia",
+    "airport_name": "Don Mueang International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AUH",
+    "city": "Abu Dhabi",
+    "country": "United Arab Emirates",
+    "country_code": "AE",
+    "continent": "Asia",
+    "airport_name": "Zayed International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DXB",
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "country_code": "AE",
+    "continent": "Asia",
+    "airport_name": "Dubai International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SHJ",
+    "city": "Sharjah",
+    "country": "United Arab Emirates",
+    "country_code": "AE",
+    "continent": "Asia",
+    "airport_name": "Sharjah International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HAN",
+    "city": "Hanoi",
+    "country": "Vietnam",
+    "country_code": "VN",
+    "continent": "Asia",
+    "airport_name": "Noi Bai International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SGN",
+    "city": "Ho Chi Minh City",
+    "country": "Vietnam",
+    "country_code": "VN",
+    "continent": "Asia",
+    "airport_name": "Tan Son Nhat International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TIA",
+    "city": "Tirana",
+    "country": "Albania",
+    "country_code": "AL",
+    "continent": "Europe",
+    "airport_name": "Tirana International Airport Nënë Tereza",
+    "commercial_flights": true
+  },
+  {
+    "iata": "EVN",
+    "city": "Yerevan",
+    "country": "Armenia",
+    "country_code": "AM",
+    "continent": "Europe",
+    "airport_name": "Zvartnots International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GRZ",
+    "city": "Graz",
+    "country": "Austria",
+    "country_code": "AT",
+    "continent": "Europe",
+    "airport_name": "Graz Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "INN",
+    "city": "Innsbruck",
+    "country": "Austria",
+    "country_code": "AT",
+    "continent": "Europe",
+    "airport_name": "Innsbruck Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KLU",
+    "city": "Klagenfurt",
+    "country": "Austria",
+    "country_code": "AT",
+    "continent": "Europe",
+    "airport_name": "Klagenfurt Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LNZ",
+    "city": "Linz",
+    "country": "Austria",
+    "country_code": "AT",
+    "continent": "Europe",
+    "airport_name": "Linz Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SZG",
+    "city": "Salzburg",
+    "country": "Austria",
+    "country_code": "AT",
+    "continent": "Europe",
+    "airport_name": "Salzburg Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "VIE",
+    "city": "Vienna",
+    "country": "Austria",
+    "country_code": "AT",
+    "continent": "Europe",
+    "airport_name": "Vienna International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GYD",
+    "city": "Baku",
+    "country": "Azerbaijan",
+    "country_code": "AZ",
+    "continent": "Europe",
+    "airport_name": "Heydar Aliyev International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MSQ",
+    "city": "Minsk",
+    "country": "Belarus",
+    "country_code": "BY",
+    "continent": "Europe",
+    "airport_name": "Minsk National Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ANR",
+    "city": "Antwerp",
+    "country": "Belgium",
+    "country_code": "BE",
+    "continent": "Europe",
+    "airport_name": "Antwerp International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BRU",
+    "city": "Brussels",
+    "country": "Belgium",
+    "country_code": "BE",
+    "continent": "Europe",
+    "airport_name": "Brussels Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CRL",
+    "city": "Charleroi",
+    "country": "Belgium",
+    "country_code": "BE",
+    "continent": "Europe",
+    "airport_name": "Brussels South Charleroi Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LGG",
+    "city": "Liège",
+    "country": "Belgium",
+    "country_code": "BE",
+    "continent": "Europe",
+    "airport_name": "Liège Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OST",
+    "city": "Ostend",
+    "country": "Belgium",
+    "country_code": "BE",
+    "continent": "Europe",
+    "airport_name": "Ostend–Bruges International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BNX",
+    "city": "Banja Luka",
+    "country": "Bosnia and Herzegovina",
+    "country_code": "BA",
+    "continent": "Europe",
+    "airport_name": "Banja Luka International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OMO",
+    "city": "Mostar",
+    "country": "Bosnia and Herzegovina",
+    "country_code": "BA",
+    "continent": "Europe",
+    "airport_name": "Mostar Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SJJ",
+    "city": "Sarajevo",
+    "country": "Bosnia and Herzegovina",
+    "country_code": "BA",
+    "continent": "Europe",
+    "airport_name": "Sarajevo International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TZL",
+    "city": "Tuzla",
+    "country": "Bosnia and Herzegovina",
+    "country_code": "BA",
+    "continent": "Europe",
+    "airport_name": "Tuzla International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BOJ",
+    "city": "Burgas",
+    "country": "Bulgaria",
+    "country_code": "BG",
+    "continent": "Europe",
+    "airport_name": "Burgas Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PDV",
+    "city": "Plovdiv",
+    "country": "Bulgaria",
+    "country_code": "BG",
+    "continent": "Europe",
+    "airport_name": "Plovdiv Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SOF",
+    "city": "Sofia",
+    "country": "Bulgaria",
+    "country_code": "BG",
+    "continent": "Europe",
+    "airport_name": "Sofia Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "VAR",
+    "city": "Varna",
+    "country": "Bulgaria",
+    "country_code": "BG",
+    "continent": "Europe",
+    "airport_name": "Varna Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DBV",
+    "city": "Dubrovnik",
+    "country": "Croatia",
+    "country_code": "HR",
+    "continent": "Europe",
+    "airport_name": "Dubrovnik Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OSI",
+    "city": "Osijek",
+    "country": "Croatia",
+    "country_code": "HR",
+    "continent": "Europe",
+    "airport_name": "Osijek Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PUY",
+    "city": "Pula",
+    "country": "Croatia",
+    "country_code": "HR",
+    "continent": "Europe",
+    "airport_name": "Pula Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "RJK",
+    "city": "Rijeka",
+    "country": "Croatia",
+    "country_code": "HR",
+    "continent": "Europe",
+    "airport_name": "Rijeka Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SPU",
+    "city": "Split",
+    "country": "Croatia",
+    "country_code": "HR",
+    "continent": "Europe",
+    "airport_name": "Split Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ZAD",
+    "city": "Zadar",
+    "country": "Croatia",
+    "country_code": "HR",
+    "continent": "Europe",
+    "airport_name": "Zadar Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ZAG",
+    "city": "Zagreb",
+    "country": "Croatia",
+    "country_code": "HR",
+    "continent": "Europe",
+    "airport_name": "Zagreb Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LCA",
+    "city": "Larnaca",
+    "country": "Cyprus",
+    "country_code": "CY",
+    "continent": "Europe",
+    "airport_name": "Larnaca International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PFO",
+    "city": "Paphos",
+    "country": "Cyprus",
+    "country_code": "CY",
+    "continent": "Europe",
+    "airport_name": "Paphos International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BRQ",
+    "city": "Brno",
+    "country": "Czech Republic",
+    "country_code": "CZ",
+    "continent": "Europe",
+    "airport_name": "Brno–Tuřany Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KLV",
+    "city": "Karlovy Vary",
+    "country": "Czech Republic",
+    "country_code": "CZ",
+    "continent": "Europe",
+    "airport_name": "Karlovy Vary Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OSR",
+    "city": "Ostrava",
+    "country": "Czech Republic",
+    "country_code": "CZ",
+    "continent": "Europe",
+    "airport_name": "Leoš Janáček Airport Ostrava",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PRG",
+    "city": "Prague",
+    "country": "Czech Republic",
+    "country_code": "CZ",
+    "continent": "Europe",
+    "airport_name": "Václav Havel Airport Prague",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AAL",
+    "city": "Aalborg",
+    "country": "Denmark",
+    "country_code": "DK",
+    "continent": "Europe",
+    "airport_name": "Aalborg Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BLL",
+    "city": "Billund",
+    "country": "Denmark",
+    "country_code": "DK",
+    "continent": "Europe",
+    "airport_name": "Billund Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CPH",
+    "city": "Copenhagen",
+    "country": "Denmark",
+    "country_code": "DK",
+    "continent": "Europe",
+    "airport_name": "Copenhagen Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TLL",
+    "city": "Tallinn",
+    "country": "Estonia",
+    "country_code": "EE",
+    "continent": "Europe",
+    "airport_name": "Tallinn Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HEL",
+    "city": "Helsinki",
+    "country": "Finland",
+    "country_code": "FI",
+    "continent": "Europe",
+    "airport_name": "Helsinki-Vantaa Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "IVL",
+    "city": "Ivalo",
+    "country": "Finland",
+    "country_code": "FI",
+    "continent": "Europe",
+    "airport_name": "Ivalo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OUL",
+    "city": "Oulu",
+    "country": "Finland",
+    "country_code": "FI",
+    "continent": "Europe",
+    "airport_name": "Oulu Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "RVN",
+    "city": "Rovaniemi",
+    "country": "Finland",
+    "country_code": "FI",
+    "continent": "Europe",
+    "airport_name": "Rovaniemi Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TMP",
+    "city": "Tampere",
+    "country": "Finland",
+    "country_code": "FI",
+    "continent": "Europe",
+    "airport_name": "Tampere–Pirkkala Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TKU",
+    "city": "Turku",
+    "country": "Finland",
+    "country_code": "FI",
+    "continent": "Europe",
+    "airport_name": "Turku Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AJA",
+    "city": "Ajaccio",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Ajaccio Napoleon Bonaparte Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BSL",
+    "city": "Basel/Mulhouse",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "EuroAirport Basel–Mulhouse–Freiburg",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BIA",
+    "city": "Bastia",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Bastia–Poretta Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "EGC",
+    "city": "Bergerac",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Bergerac Dordogne Périgord Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BIQ",
+    "city": "Biarritz",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Biarritz Pays Basque Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BOD",
+    "city": "Bordeaux",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Bordeaux–Mérignac Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BES",
+    "city": "Brest",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Brest Bretagne Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BVE",
+    "city": "Brive",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Brive–Souillac Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CFR",
+    "city": "Caen",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Caen – Carpiquet Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CLY",
+    "city": "Calvi",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Calvi – Sainte-Catherine Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CCF",
+    "city": "Carcassonne",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Carcassonne Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DOL",
+    "city": "Deauville",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Deauville – Normandy Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FSC",
+    "city": "Figari",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Figari–Sud Corse Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LIL",
+    "city": "Lille",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Lille Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LDE",
+    "city": "Lourdes/Tarbes",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Tarbes–Lourdes–Pyrénées Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LYS",
+    "city": "Lyon",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Lyon–Saint-Exupéry Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MRS",
+    "city": "Marseille",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Marseille Provence Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ETZ",
+    "city": "Metz/Nancy",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Lorraine Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MPL",
+    "city": "Montpellier",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Montpellier–Méditerranée Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "NTE",
+    "city": "Nantes",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Nantes Atlantique Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "NCE",
+    "city": "Nice",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Nice Côte d'Azur Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CDG",
+    "city": "Paris",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Charles de Gaulle Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ORY",
+    "city": "Paris",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Orly Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PUF",
+    "city": "Pau",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Pau Pyrénées Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PGF",
+    "city": "Perpignan",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Perpignan–Rivesaltes Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "RNS",
+    "city": "Rennes",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Rennes–Saint-Jacques Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SXB",
+    "city": "Strasbourg",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Strasbourg Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TLS",
+    "city": "Toulouse",
+    "country": "France",
+    "country_code": "FR",
+    "continent": "Europe",
+    "airport_name": "Toulouse–Blagnac Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BUS",
+    "city": "Batumi",
+    "country": "Georgia",
+    "country_code": "GE",
+    "continent": "Europe",
+    "airport_name": "Batumi International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KUT",
+    "city": "Kutaisi",
+    "country": "Georgia",
+    "country_code": "GE",
+    "continent": "Europe",
+    "airport_name": "Kutaisi International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TBS",
+    "city": "Tbilisi",
+    "country": "Georgia",
+    "country_code": "GE",
+    "continent": "Europe",
+    "airport_name": "Tbilisi International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BER",
+    "city": "Berlin",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Berlin Brandenburg Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BRE",
+    "city": "Bremen",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Bremen Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CGN",
+    "city": "Cologne/Bonn",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Cologne Bonn Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DTM",
+    "city": "Dortmund",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Dortmund Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DRS",
+    "city": "Dresden",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Dresden Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DUS",
+    "city": "Düsseldorf",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Düsseldorf Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ERF",
+    "city": "Erfurt",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Erfurt–Weimar Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FRA",
+    "city": "Frankfurt",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Frankfurt Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HHN",
+    "city": "Frankfurt",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Frankfurt-Hahn Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HAM",
+    "city": "Hamburg",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Hamburg Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HAJ",
+    "city": "Hanover",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Hannover Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FKB",
+    "city": "Karlsruhe/Baden-Baden",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Karlsruhe/Baden-Baden Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LEJ",
+    "city": "Leipzig/Halle",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Leipzig/Halle Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FMM",
+    "city": "Memmingen",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Memmingen Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MUC",
+    "city": "Munich",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Munich Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "NUE",
+    "city": "Nuremberg",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Nuremberg Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PAD",
+    "city": "Paderborn",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Paderborn Lippstadt Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "STR",
+    "city": "Stuttgart",
+    "country": "Germany",
+    "country_code": "DE",
+    "continent": "Europe",
+    "airport_name": "Stuttgart Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ATH",
+    "city": "Athens",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Athens International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CHQ",
+    "city": "Chania",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Chania International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CFU",
+    "city": "Corfu",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Corfu International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HER",
+    "city": "Heraklion",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Heraklion International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KLX",
+    "city": "Kalamata",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Kalamata International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AOK",
+    "city": "Karpathos",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Karpathos Island National Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KGS",
+    "city": "Kos",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Kos International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "JMK",
+    "city": "Mykonos",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Mykonos Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PVK",
+    "city": "Preveza",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Aktion National Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "RHO",
+    "city": "Rhodes",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Rhodes International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "JTR",
+    "city": "Santorini",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Santorini Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SKG",
+    "city": "Thessaloniki",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Thessaloniki Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ZTH",
+    "city": "Zakynthos",
+    "country": "Greece",
+    "country_code": "GR",
+    "continent": "Europe",
+    "airport_name": "Zakynthos International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GCI",
+    "city": "Guernsey",
+    "country": "Guernsey",
+    "country_code": "GG",
+    "continent": "Europe",
+    "airport_name": "Guernsey Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BUD",
+    "city": "Budapest",
+    "country": "Hungary",
+    "country_code": "HU",
+    "continent": "Europe",
+    "airport_name": "Budapest Ferenc Liszt International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DEB",
+    "city": "Debrecen",
+    "country": "Hungary",
+    "country_code": "HU",
+    "continent": "Europe",
+    "airport_name": "Debrecen International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KEF",
+    "city": "Keflavík",
+    "country": "Iceland",
+    "country_code": "IS",
+    "continent": "Europe",
+    "airport_name": "Keflavík International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ORK",
+    "city": "Cork",
+    "country": "Ireland",
+    "country_code": "IE",
+    "continent": "Europe",
+    "airport_name": "Cork Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DUB",
+    "city": "Dublin",
+    "country": "Ireland",
+    "country_code": "IE",
+    "continent": "Europe",
+    "airport_name": "Dublin Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KIR",
+    "city": "Kerry",
+    "country": "Ireland",
+    "country_code": "IE",
+    "continent": "Europe",
+    "airport_name": "Kerry Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "NOC",
+    "city": "Knock",
+    "country": "Ireland",
+    "country_code": "IE",
+    "continent": "Europe",
+    "airport_name": "Ireland West Airport Knock",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SNN",
+    "city": "Shannon",
+    "country": "Ireland",
+    "country_code": "IE",
+    "continent": "Europe",
+    "airport_name": "Shannon Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AHO",
+    "city": "Alghero",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Alghero–Fertilia Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BRI",
+    "city": "Bari",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Bari Karol Wojtyła Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BLQ",
+    "city": "Bologna",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Bologna Guglielmo Marconi Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CAG",
+    "city": "Cagliari",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Cagliari Elmas Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CTA",
+    "city": "Catania",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Catania–Fontanarossa Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FLR",
+    "city": "Florence",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Florence Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GOA",
+    "city": "Genoa",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Genoa Cristoforo Colombo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SUF",
+    "city": "Lamezia Terme",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Lamezia Terme International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BGY",
+    "city": "Milan",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Milan Bergamo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LIN",
+    "city": "Milan",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Milan Linate Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MXP",
+    "city": "Milan",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Milan Malpensa Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "NAP",
+    "city": "Naples",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Naples International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OLB",
+    "city": "Olbia",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Olbia Costa Smeralda Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PMO",
+    "city": "Palermo",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Palermo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PSR",
+    "city": "Pescara",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Abruzzo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PSA",
+    "city": "Pisa",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Pisa International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "REG",
+    "city": "Reggio Calabria",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Reggio Calabria Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CIA",
+    "city": "Rome",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Rome Ciampino Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FCO",
+    "city": "Rome",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Leonardo da Vinci–Fiumicino Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TRS",
+    "city": "Trieste",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Trieste – Friuli Venezia Giulia Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TRN",
+    "city": "Turin",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Turin Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "VCE",
+    "city": "Venice",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Venice Marco Polo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "VRN",
+    "city": "Verona",
+    "country": "Italy",
+    "country_code": "IT",
+    "continent": "Europe",
+    "airport_name": "Verona Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "JER",
+    "city": "Jersey",
+    "country": "Jersey",
+    "country_code": "JE",
+    "continent": "Europe",
+    "airport_name": "Jersey Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PRN",
+    "city": "Pristina",
+    "country": "Kosovo",
+    "country_code": "XK",
+    "continent": "Europe",
+    "airport_name": "Pristina International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "RIX",
+    "city": "Riga",
+    "country": "Latvia",
+    "country_code": "LV",
+    "continent": "Europe",
+    "airport_name": "Riga International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KUN",
+    "city": "Kaunas",
+    "country": "Lithuania",
+    "country_code": "LT",
+    "continent": "Europe",
+    "airport_name": "Kaunas Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PLQ",
+    "city": "Palanga",
+    "country": "Lithuania",
+    "country_code": "LT",
+    "continent": "Europe",
+    "airport_name": "Palanga International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "VNO",
+    "city": "Vilnius",
+    "country": "Lithuania",
+    "country_code": "LT",
+    "continent": "Europe",
+    "airport_name": "Vilnius Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LUX",
+    "city": "Luxembourg",
+    "country": "Luxembourg",
+    "country_code": "LU",
+    "continent": "Europe",
+    "airport_name": "Luxembourg Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MLA",
+    "city": "Malta",
+    "country": "Malta",
+    "country_code": "MT",
+    "continent": "Europe",
+    "airport_name": "Malta International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KIV",
+    "city": "Chișinău",
+    "country": "Moldova",
+    "country_code": "MD",
+    "continent": "Europe",
+    "airport_name": "Chișinău International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TGD",
+    "city": "Podgorica",
+    "country": "Montenegro",
+    "country_code": "ME",
+    "continent": "Europe",
+    "airport_name": "Podgorica Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TIV",
+    "city": "Tivat",
+    "country": "Montenegro",
+    "country_code": "ME",
+    "continent": "Europe",
+    "airport_name": "Tivat Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AMS",
+    "city": "Amsterdam",
+    "country": "Netherlands",
+    "country_code": "NL",
+    "continent": "Europe",
+    "airport_name": "Schiphol Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "EIN",
+    "city": "Eindhoven",
+    "country": "Netherlands",
+    "country_code": "NL",
+    "continent": "Europe",
+    "airport_name": "Eindhoven Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GRQ",
+    "city": "Groningen",
+    "country": "Netherlands",
+    "country_code": "NL",
+    "continent": "Europe",
+    "airport_name": "Groningen Airport Eelde",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MST",
+    "city": "Maastricht",
+    "country": "Netherlands",
+    "country_code": "NL",
+    "continent": "Europe",
+    "airport_name": "Maastricht Aachen Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "RTM",
+    "city": "Rotterdam",
+    "country": "Netherlands",
+    "country_code": "NL",
+    "continent": "Europe",
+    "airport_name": "Rotterdam The Hague Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OHD",
+    "city": "Ohrid",
+    "country": "North Macedonia",
+    "country_code": "MK",
+    "continent": "Europe",
+    "airport_name": "Ohrid St. Paul the Apostle Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SKP",
+    "city": "Skopje",
+    "country": "North Macedonia",
+    "country_code": "MK",
+    "continent": "Europe",
+    "airport_name": "Skopje International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BGO",
+    "city": "Bergen",
+    "country": "Norway",
+    "country_code": "NO",
+    "continent": "Europe",
+    "airport_name": "Bergen Airport, Flesland",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OSL",
+    "city": "Oslo",
+    "country": "Norway",
+    "country_code": "NO",
+    "continent": "Europe",
+    "airport_name": "Oslo Airport, Gardermoen",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SVG",
+    "city": "Stavanger",
+    "country": "Norway",
+    "country_code": "NO",
+    "continent": "Europe",
+    "airport_name": "Stavanger Airport, Sola",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TOS",
+    "city": "Tromsø",
+    "country": "Norway",
+    "country_code": "NO",
+    "continent": "Europe",
+    "airport_name": "Tromsø Airport, Langnes",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TRD",
+    "city": "Trondheim",
+    "country": "Norway",
+    "country_code": "NO",
+    "continent": "Europe",
+    "airport_name": "Trondheim Airport, Værnes",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AES",
+    "city": "Ålesund",
+    "country": "Norway",
+    "country_code": "NO",
+    "continent": "Europe",
+    "airport_name": "Ålesund Airport, Vigra",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GDN",
+    "city": "Gdańsk",
+    "country": "Poland",
+    "country_code": "PL",
+    "continent": "Europe",
+    "airport_name": "Gdańsk Lech Wałęsa Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KTW",
+    "city": "Katowice",
+    "country": "Poland",
+    "country_code": "PL",
+    "continent": "Europe",
+    "airport_name": "Katowice Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KRK",
+    "city": "Kraków",
+    "country": "Poland",
+    "country_code": "PL",
+    "continent": "Europe",
+    "airport_name": "John Paul II International Airport Kraków–Balice",
+    "commercial_flights": true
+  },
+  {
+    "iata": "POZ",
+    "city": "Poznań",
+    "country": "Poland",
+    "country_code": "PL",
+    "continent": "Europe",
+    "airport_name": "Poznań–Ławica Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "RZE",
+    "city": "Rzeszów",
+    "country": "Poland",
+    "country_code": "PL",
+    "continent": "Europe",
+    "airport_name": "Rzeszów–Jasionka Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SZZ",
+    "city": "Szczecin",
+    "country": "Poland",
+    "country_code": "PL",
+    "continent": "Europe",
+    "airport_name": "Szczecin–Goleniów Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "WAW",
+    "city": "Warsaw",
+    "country": "Poland",
+    "country_code": "PL",
+    "continent": "Europe",
+    "airport_name": "Warsaw Chopin Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "WMI",
+    "city": "Warsaw",
+    "country": "Poland",
+    "country_code": "PL",
+    "continent": "Europe",
+    "airport_name": "Warsaw Modlin Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "WRO",
+    "city": "Wrocław",
+    "country": "Poland",
+    "country_code": "PL",
+    "continent": "Europe",
+    "airport_name": "Wrocław Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LCJ",
+    "city": "Łódź",
+    "country": "Poland",
+    "country_code": "PL",
+    "continent": "Europe",
+    "airport_name": "Łódź Władysław Reymont Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CVU",
+    "city": "Corvo Island",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Corvo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FAO",
+    "city": "Faro",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Faro Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FLW",
+    "city": "Flores Island",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Flores Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FNC",
+    "city": "Funchal",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Madeira Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HOR",
+    "city": "Horta",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Horta Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LIS",
+    "city": "Lisbon",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Humberto Delgado Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PIX",
+    "city": "Pico Island",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Pico Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PDL",
+    "city": "Ponta Delgada",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "João Paulo II Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OPO",
+    "city": "Porto",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Francisco Sá Carneiro Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PXO",
+    "city": "Porto Santo",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Porto Santo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SMA",
+    "city": "Santa Maria Island",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Santa Maria Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SJZ",
+    "city": "São Jorge Island",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "São Jorge Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TER",
+    "city": "Terceira Island",
+    "country": "Portugal",
+    "country_code": "PT",
+    "continent": "Europe",
+    "airport_name": "Lajes Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BCM",
+    "city": "Bacău",
+    "country": "Romania",
+    "country_code": "RO",
+    "continent": "Europe",
+    "airport_name": "Bacău International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OTP",
+    "city": "Bucharest",
+    "country": "Romania",
+    "country_code": "RO",
+    "continent": "Europe",
+    "airport_name": "Henri Coandă International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CLJ",
+    "city": "Cluj-Napoca",
+    "country": "Romania",
+    "country_code": "RO",
+    "continent": "Europe",
+    "airport_name": "Cluj Avram Iancu International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CRA",
+    "city": "Craiova",
+    "country": "Romania",
+    "country_code": "RO",
+    "continent": "Europe",
+    "airport_name": "Craiova International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "IAS",
+    "city": "Iași",
+    "country": "Romania",
+    "country_code": "RO",
+    "continent": "Europe",
+    "airport_name": "Iași International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SUJ",
+    "city": "Satu Mare",
+    "country": "Romania",
+    "country_code": "RO",
+    "continent": "Europe",
+    "airport_name": "Satu Mare International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SBZ",
+    "city": "Sibiu",
+    "country": "Romania",
+    "country_code": "RO",
+    "continent": "Europe",
+    "airport_name": "Sibiu International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TSR",
+    "city": "Timișoara",
+    "country": "Romania",
+    "country_code": "RO",
+    "continent": "Europe",
+    "airport_name": "Timișoara Traian Vuia International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KGD",
+    "city": "Kaliningrad",
+    "country": "Russia",
+    "country_code": "RU",
+    "continent": "Europe",
+    "airport_name": "Khrabrovo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DME",
+    "city": "Moscow",
+    "country": "Russia",
+    "country_code": "RU",
+    "continent": "Europe",
+    "airport_name": "Domodedovo International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SVO",
+    "city": "Moscow",
+    "country": "Russia",
+    "country_code": "RU",
+    "continent": "Europe",
+    "airport_name": "Sheremetyevo International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "VKO",
+    "city": "Moscow",
+    "country": "Russia",
+    "country_code": "RU",
+    "continent": "Europe",
+    "airport_name": "Vnukovo International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LED",
+    "city": "Saint Petersburg",
+    "country": "Russia",
+    "country_code": "RU",
+    "continent": "Europe",
+    "airport_name": "Pulkovo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BEG",
+    "city": "Belgrade",
+    "country": "Serbia",
+    "country_code": "RS",
+    "continent": "Europe",
+    "airport_name": "Belgrade Nikola Tesla Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "INI",
+    "city": "Niš",
+    "country": "Serbia",
+    "country_code": "RS",
+    "continent": "Europe",
+    "airport_name": "Niš Constantine the Great Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BTS",
+    "city": "Bratislava",
+    "country": "Slovakia",
+    "country_code": "SK",
+    "continent": "Europe",
+    "airport_name": "M. R. Štefánik Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KSC",
+    "city": "Košice",
+    "country": "Slovakia",
+    "country_code": "SK",
+    "continent": "Europe",
+    "airport_name": "Košice International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LJU",
+    "city": "Ljubljana",
+    "country": "Slovenia",
+    "country_code": "SI",
+    "continent": "Europe",
+    "airport_name": "Ljubljana Jože Pučnik Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LCG",
+    "city": "A Coruña",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "A Coruña Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ALC",
+    "city": "Alicante",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Alicante–Elche Miguel Hernández Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LEI",
+    "city": "Almería",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Almería Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "OVD",
+    "city": "Asturias",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Asturias Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BCN",
+    "city": "Barcelona",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Barcelona–El Prat Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BIO",
+    "city": "Bilbao",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Bilbao Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FUE",
+    "city": "Fuerteventura",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Fuerteventura Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LPA",
+    "city": "Gran Canaria",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Gran Canaria Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GRX",
+    "city": "Granada",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Federico García Lorca Granada–Jaén Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "IBZ",
+    "city": "Ibiza",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Ibiza Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "XRY",
+    "city": "Jerez de la Frontera",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Jerez Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SPC",
+    "city": "La Palma",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "La Palma Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ACE",
+    "city": "Lanzarote",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Lanzarote Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MAD",
+    "city": "Madrid",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Adolfo Suárez Madrid–Barajas Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MLN",
+    "city": "Melilla",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Melilla Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MAH",
+    "city": "Menorca",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Menorca Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AGP",
+    "city": "Málaga",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Málaga-Costa del Sol Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PMI",
+    "city": "Palma de Mallorca",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Palma de Mallorca Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "REU",
+    "city": "Reus",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Reus Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "EAS",
+    "city": "San Sebastián",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "San Sebastián Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SDR",
+    "city": "Santander",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Seve Ballesteros–Santander Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SCQ",
+    "city": "Santiago de Compostela",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Santiago–Rosalía de Castro Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SVQ",
+    "city": "Seville",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Seville Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TFN",
+    "city": "Tenerife",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Tenerife North Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TFS",
+    "city": "Tenerife",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Tenerife South Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "VLC",
+    "city": "Valencia",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Valencia Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "VLL",
+    "city": "Valladolid",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Valladolid Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "VGO",
+    "city": "Vigo",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Vigo Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ZAZ",
+    "city": "Zaragoza",
+    "country": "Spain",
+    "country_code": "ES",
+    "continent": "Europe",
+    "airport_name": "Zaragoza Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GOT",
+    "city": "Gothenburg",
+    "country": "Sweden",
+    "country_code": "SE",
+    "continent": "Europe",
+    "airport_name": "Gothenburg Landvetter Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LLA",
+    "city": "Luleå",
+    "country": "Sweden",
+    "country_code": "SE",
+    "continent": "Europe",
+    "airport_name": "Luleå Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MMX",
+    "city": "Malmö",
+    "country": "Sweden",
+    "country_code": "SE",
+    "continent": "Europe",
+    "airport_name": "Malmö Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ARN",
+    "city": "Stockholm",
+    "country": "Sweden",
+    "country_code": "SE",
+    "continent": "Europe",
+    "airport_name": "Stockholm Arlanda Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "UME",
+    "city": "Umeå",
+    "country": "Sweden",
+    "country_code": "SE",
+    "continent": "Europe",
+    "airport_name": "Umeå Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BRN",
+    "city": "Bern",
+    "country": "Switzerland",
+    "country_code": "CH",
+    "continent": "Europe",
+    "airport_name": "Bern Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GVA",
+    "city": "Geneva",
+    "country": "Switzerland",
+    "country_code": "CH",
+    "continent": "Europe",
+    "airport_name": "Geneva Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LUG",
+    "city": "Lugano",
+    "country": "Switzerland",
+    "country_code": "CH",
+    "continent": "Europe",
+    "airport_name": "Lugano Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ACH",
+    "city": "St. Gallen",
+    "country": "Switzerland",
+    "country_code": "CH",
+    "continent": "Europe",
+    "airport_name": "St. Gallen–Altenrhein Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ZRH",
+    "city": "Zurich",
+    "country": "Switzerland",
+    "country_code": "CH",
+    "continent": "Europe",
+    "airport_name": "Zurich Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ESB",
+    "city": "Ankara",
+    "country": "Turkey",
+    "country_code": "TR",
+    "continent": "Europe",
+    "airport_name": "Esenboğa International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AYT",
+    "city": "Antalya",
+    "country": "Turkey",
+    "country_code": "TR",
+    "continent": "Europe",
+    "airport_name": "Antalya Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BJV",
+    "city": "Bodrum",
+    "country": "Turkey",
+    "country_code": "TR",
+    "continent": "Europe",
+    "airport_name": "Milas–Bodrum Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DLM",
+    "city": "Dalaman",
+    "country": "Turkey",
+    "country_code": "TR",
+    "continent": "Europe",
+    "airport_name": "Dalaman Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "IST",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "country_code": "TR",
+    "continent": "Europe",
+    "airport_name": "Istanbul Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SAW",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "country_code": "TR",
+    "continent": "Europe",
+    "airport_name": "Sabiha Gökçen International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ASR",
+    "city": "Kayseri",
+    "country": "Turkey",
+    "country_code": "TR",
+    "continent": "Europe",
+    "airport_name": "Erkilet International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TZX",
+    "city": "Trabzon",
+    "country": "Turkey",
+    "country_code": "TR",
+    "continent": "Europe",
+    "airport_name": "Trabzon Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ADB",
+    "city": "İzmir",
+    "country": "Turkey",
+    "country_code": "TR",
+    "continent": "Europe",
+    "airport_name": "İzmir Adnan Menderes Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HRK",
+    "city": "Kharkiv",
+    "country": "Ukraine",
+    "country_code": "UA",
+    "continent": "Europe",
+    "airport_name": "Kharkiv International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "IEV",
+    "city": "Kyiv",
+    "country": "Ukraine",
+    "country_code": "UA",
+    "continent": "Europe",
+    "airport_name": "Kyiv International Airport (Zhuliany)",
+    "commercial_flights": true
+  },
+  {
+    "iata": "KBP",
+    "city": "Kyiv",
+    "country": "Ukraine",
+    "country_code": "UA",
+    "continent": "Europe",
+    "airport_name": "Boryspil International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LWO",
+    "city": "Lviv",
+    "country": "Ukraine",
+    "country_code": "UA",
+    "continent": "Europe",
+    "airport_name": "Lviv Danylo Halytskyi International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ODS",
+    "city": "Odesa",
+    "country": "Ukraine",
+    "country_code": "UA",
+    "continent": "Europe",
+    "airport_name": "Odesa International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ABZ",
+    "city": "Aberdeen",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Aberdeen International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BFS",
+    "city": "Belfast",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Belfast International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BHD",
+    "city": "Belfast",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "George Best Belfast City Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BHX",
+    "city": "Birmingham",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Birmingham Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BRS",
+    "city": "Bristol",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Bristol Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CWL",
+    "city": "Cardiff",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Cardiff Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DSA",
+    "city": "Doncaster/Sheffield",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Doncaster Sheffield Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "EDI",
+    "city": "Edinburgh",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Edinburgh Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "EXT",
+    "city": "Exeter",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Exeter Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GLA",
+    "city": "Glasgow",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Glasgow Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PIK",
+    "city": "Glasgow",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Glasgow Prestwick Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "INV",
+    "city": "Inverness",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Inverness Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LBA",
+    "city": "Leeds/Bradford",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Leeds Bradford Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LPL",
+    "city": "Liverpool",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Liverpool John Lennon Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LCY",
+    "city": "London",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "London City Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LGW",
+    "city": "London",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Gatwick Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LHR",
+    "city": "London",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Heathrow Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LTN",
+    "city": "London",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "London Luton Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "STN",
+    "city": "London",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Stansted Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MAN",
+    "city": "Manchester",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Manchester Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "NCL",
+    "city": "Newcastle",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Newcastle International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "NQY",
+    "city": "Newquay",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Newquay Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "EMA",
+    "city": "Nottingham/Derby",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "East Midlands Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SOU",
+    "city": "Southampton",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "continent": "Europe",
+    "airport_name": "Southampton Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "YYC",
+    "city": "Calgary",
+    "country": "Canada",
+    "country_code": "CA",
+    "continent": "North America",
+    "airport_name": "Calgary International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "YEG",
+    "city": "Edmonton",
+    "country": "Canada",
+    "country_code": "CA",
+    "continent": "North America",
+    "airport_name": "Edmonton International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "YHZ",
+    "city": "Halifax",
+    "country": "Canada",
+    "country_code": "CA",
+    "continent": "North America",
+    "airport_name": "Halifax Stanfield International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "YUL",
+    "city": "Montreal",
+    "country": "Canada",
+    "country_code": "CA",
+    "continent": "North America",
+    "airport_name": "Montréal-Pierre Elliott Trudeau International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "YOW",
+    "city": "Ottawa",
+    "country": "Canada",
+    "country_code": "CA",
+    "continent": "North America",
+    "airport_name": "Ottawa Macdonald–Cartier International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "YYZ",
+    "city": "Toronto",
+    "country": "Canada",
+    "country_code": "CA",
+    "continent": "North America",
+    "airport_name": "Toronto Pearson International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "YVR",
+    "city": "Vancouver",
+    "country": "Canada",
+    "country_code": "CA",
+    "continent": "North America",
+    "airport_name": "Vancouver International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HAV",
+    "city": "Havana",
+    "country": "Cuba",
+    "country_code": "CU",
+    "continent": "North America",
+    "airport_name": "José Martí International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PUJ",
+    "city": "Punta Cana",
+    "country": "Dominican Republic",
+    "country_code": "DO",
+    "continent": "North America",
+    "airport_name": "Punta Cana International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MBJ",
+    "city": "Montego Bay",
+    "country": "Jamaica",
+    "country_code": "JM",
+    "continent": "North America",
+    "airport_name": "Sangster International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CUN",
+    "city": "Cancún",
+    "country": "Mexico",
+    "country_code": "MX",
+    "continent": "North America",
+    "airport_name": "Cancún International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GDL",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "country_code": "MX",
+    "continent": "North America",
+    "airport_name": "Guadalajara International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SJD",
+    "city": "Los Cabos",
+    "country": "Mexico",
+    "country_code": "MX",
+    "continent": "North America",
+    "airport_name": "Los Cabos International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MEX",
+    "city": "Mexico City",
+    "country": "Mexico",
+    "country_code": "MX",
+    "continent": "North America",
+    "airport_name": "Mexico City International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MTY",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "country_code": "MX",
+    "continent": "North America",
+    "airport_name": "Monterrey International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PVR",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "country_code": "MX",
+    "continent": "North America",
+    "airport_name": "Licenciado Gustavo Díaz Ordaz International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SJU",
+    "city": "San Juan",
+    "country": "Puerto Rico",
+    "country_code": "PR",
+    "continent": "North America",
+    "airport_name": "Luis Muñoz Marín International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ATL",
+    "city": "Atlanta",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Hartsfield–Jackson Atlanta International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BWI",
+    "city": "Baltimore",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Baltimore/Washington International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BOS",
+    "city": "Boston",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Logan International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CLT",
+    "city": "Charlotte",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Charlotte Douglas International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ORD",
+    "city": "Chicago",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "O'Hare International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DFW",
+    "city": "Dallas/Fort Worth",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Dallas/Fort Worth International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DEN",
+    "city": "Denver",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Denver International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DTW",
+    "city": "Detroit",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Detroit Metropolitan Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "HNL",
+    "city": "Honolulu",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Daniel K. Inouye International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "IAH",
+    "city": "Houston",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "George Bush Intercontinental Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LAS",
+    "city": "Las Vegas",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Harry Reid International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LAX",
+    "city": "Los Angeles",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Los Angeles International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MIA",
+    "city": "Miami",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Miami International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MSP",
+    "city": "Minneapolis",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Minneapolis–Saint Paul International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "JFK",
+    "city": "New York",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "John F. Kennedy International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "EWR",
+    "city": "Newark",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Newark Liberty International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MCO",
+    "city": "Orlando",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Orlando International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PHL",
+    "city": "Philadelphia",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Philadelphia International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PHX",
+    "city": "Phoenix",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Phoenix Sky Harbor International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PDX",
+    "city": "Portland",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Portland International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SLC",
+    "city": "Salt Lake City",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Salt Lake City International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SAN",
+    "city": "San Diego",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "San Diego International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SFO",
+    "city": "San Francisco",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "San Francisco International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SEA",
+    "city": "Seattle",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Seattle-Tacoma International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "TPA",
+    "city": "Tampa",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Tampa International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "DCA",
+    "city": "Washington",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Ronald Reagan Washington National Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "IAD",
+    "city": "Washington",
+    "country": "United States",
+    "country_code": "US",
+    "continent": "North America",
+    "airport_name": "Washington Dulles International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "ADL",
+    "city": "Adelaide",
+    "country": "Australia",
+    "country_code": "AU",
+    "continent": "Oceania",
+    "airport_name": "Adelaide Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BNE",
+    "city": "Brisbane",
+    "country": "Australia",
+    "country_code": "AU",
+    "continent": "Oceania",
+    "airport_name": "Brisbane Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CBR",
+    "city": "Canberra",
+    "country": "Australia",
+    "country_code": "AU",
+    "continent": "Oceania",
+    "airport_name": "Canberra Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MEL",
+    "city": "Melbourne",
+    "country": "Australia",
+    "country_code": "AU",
+    "continent": "Oceania",
+    "airport_name": "Melbourne Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "PER",
+    "city": "Perth",
+    "country": "Australia",
+    "country_code": "AU",
+    "continent": "Oceania",
+    "airport_name": "Perth Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SYD",
+    "city": "Sydney",
+    "country": "Australia",
+    "country_code": "AU",
+    "continent": "Oceania",
+    "airport_name": "Sydney Kingsford Smith Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AKL",
+    "city": "Auckland",
+    "country": "New Zealand",
+    "country_code": "NZ",
+    "continent": "Oceania",
+    "airport_name": "Auckland Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CHC",
+    "city": "Christchurch",
+    "country": "New Zealand",
+    "country_code": "NZ",
+    "continent": "Oceania",
+    "airport_name": "Christchurch Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "WLG",
+    "city": "Wellington",
+    "country": "New Zealand",
+    "country_code": "NZ",
+    "continent": "Oceania",
+    "airport_name": "Wellington International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "AEP",
+    "city": "Buenos Aires",
+    "country": "Argentina",
+    "country_code": "AR",
+    "continent": "South America",
+    "airport_name": "Jorge Newbery Airfield",
+    "commercial_flights": true
+  },
+  {
+    "iata": "EZE",
+    "city": "Buenos Aires",
+    "country": "Argentina",
+    "country_code": "AR",
+    "continent": "South America",
+    "airport_name": "Ministro Pistarini International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "COR",
+    "city": "Córdoba",
+    "country": "Argentina",
+    "country_code": "AR",
+    "continent": "South America",
+    "airport_name": "Ingeniero Aeronáutico Ambrosio L.V. Taravella Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CNF",
+    "city": "Belo Horizonte",
+    "country": "Brazil",
+    "country_code": "BR",
+    "continent": "South America",
+    "airport_name": "Tancredo Neves International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BSB",
+    "city": "Brasília",
+    "country": "Brazil",
+    "country_code": "BR",
+    "continent": "South America",
+    "airport_name": "Brasília International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CWB",
+    "city": "Curitiba",
+    "country": "Brazil",
+    "country_code": "BR",
+    "continent": "South America",
+    "airport_name": "Afonso Pena International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "FOR",
+    "city": "Fortaleza",
+    "country": "Brazil",
+    "country_code": "BR",
+    "continent": "South America",
+    "airport_name": "Fortaleza–Pinto Martins International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "POA",
+    "city": "Porto Alegre",
+    "country": "Brazil",
+    "country_code": "BR",
+    "continent": "South America",
+    "airport_name": "Salgado Filho International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "REC",
+    "city": "Recife",
+    "country": "Brazil",
+    "country_code": "BR",
+    "continent": "South America",
+    "airport_name": "Recife/Guararapes–Gilberto Freyre International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GIG",
+    "city": "Rio de Janeiro",
+    "country": "Brazil",
+    "country_code": "BR",
+    "continent": "South America",
+    "airport_name": "Rio de Janeiro/Galeão International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SSA",
+    "city": "Salvador",
+    "country": "Brazil",
+    "country_code": "BR",
+    "continent": "South America",
+    "airport_name": "Salvador Bahia Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GRU",
+    "city": "São Paulo",
+    "country": "Brazil",
+    "country_code": "BR",
+    "continent": "South America",
+    "airport_name": "São Paulo/Guarulhos International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "SCL",
+    "city": "Santiago",
+    "country": "Chile",
+    "country_code": "CL",
+    "continent": "South America",
+    "airport_name": "Arturo Merino Benítez International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "BOG",
+    "city": "Bogotá",
+    "country": "Colombia",
+    "country_code": "CO",
+    "continent": "South America",
+    "airport_name": "El Dorado International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "CLO",
+    "city": "Cali",
+    "country": "Colombia",
+    "country_code": "CO",
+    "continent": "South America",
+    "airport_name": "Alfonso Bonilla Aragón International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "MDE",
+    "city": "Medellín",
+    "country": "Colombia",
+    "country_code": "CO",
+    "continent": "South America",
+    "airport_name": "José María Córdova International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "GYE",
+    "city": "Guayaquil",
+    "country": "Ecuador",
+    "country_code": "EC",
+    "continent": "South America",
+    "airport_name": "José Joaquín de Olmedo International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "UIO",
+    "city": "Quito",
+    "country": "Ecuador",
+    "country_code": "EC",
+    "continent": "South America",
+    "airport_name": "Mariscal Sucre International Airport",
+    "commercial_flights": true
+  },
+  {
+    "iata": "LIM",
+    "city": "Lima",
+    "country": "Peru",
+    "country_code": "PE",
+    "continent": "South America",
+    "airport_name": "Jorge Chávez International Airport",
+    "commercial_flights": true
+  }
+]
