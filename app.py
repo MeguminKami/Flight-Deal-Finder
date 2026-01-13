@@ -1,15 +1,16 @@
 '''
 Flight Deal Finder - Main Application (Modernized)
-A local tool to discover cheap round-trip flights using Travelpayouts cached data.
+A local tool to discover cheap round-trip flights using Amadeus API (primary) or Travelpayouts cached data (fallback).
 '''
 
 import os
 from datetime import datetime, timedelta
-from typing import List, Optional
+from typing import List
 from urllib.parse import urlencode
 from dotenv import load_dotenv
 from nicegui import ui, app as nicegui_app
 from api_client import TravelpayoutsClient, APIConfig
+from amadeus_client import get_amadeus_client, AmadeusFlightsClient, AmadeusConfig, AmadeusAPIError
 from airports import get_airport_db
 from models import FlightDeal
 from cache import get_cache
@@ -18,10 +19,12 @@ import asyncio
 load_dotenv()
 
 API_TOKEN = os.getenv('TRAVELPAYOUTS_TOKEN', '')
+AMADEUS_CLIENT_ID = os.getenv('AMADEUS_CLIENT_ID', '')
+AMADEUS_CLIENT_SECRET = os.getenv('AMADEUS_CLIENT_SECRET', '')
 ITEMS_PER_PAGE = 10
 
 airport_db = get_airport_db()
-api_client = None
+api_client = None  # Will be set to AmadeusFlightsClient or TravelpayoutsClient
 
 class FlightSearchApp:
     '''Main application controller with modernized UI.'''
@@ -350,13 +353,25 @@ class FlightSearchApp:
         if self.is_searching:
             return
 
-        if not API_TOKEN:
-            self._safe_notify('API token not configured. Set TRAVELPAYOUTS_TOKEN in .env', 'negative')
-            return
-
+        # Initialize API client - prefer Amadeus, fallback to Travelpayouts
         global api_client
         if api_client is None:
-            api_client = TravelpayoutsClient(APIConfig(token=API_TOKEN))
+            if AMADEUS_CLIENT_ID and AMADEUS_CLIENT_SECRET:
+                try:
+                    api_client = get_amadeus_client()
+                    if api_client:
+                        self._safe_notify('Using Amadeus API (minimal calls mode)', 'info')
+                except Exception as e:
+                    print(f"Amadeus init failed: {e}")
+                    api_client = None
+
+            if api_client is None and API_TOKEN:
+                api_client = TravelpayoutsClient(APIConfig(token=API_TOKEN))
+                self._safe_notify('Using Travelpayouts API (fallback)', 'info')
+
+        if api_client is None:
+            self._safe_notify('No API configured. Set AMADEUS_CLIENT_ID/SECRET or TRAVELPAYOUTS_TOKEN in .env', 'negative')
+            return
 
         # Validation
         if self.min_days > self.max_days:
@@ -615,7 +630,11 @@ class FlightSearchApp:
                     ui.icon('arrow_forward', size='1.5rem').style('color: var(--text-muted);')
                     ui.label(f"{deal.dest_flag} {deal.dest_iata} ({dest_city})").style('font-size: 1.2rem; font-weight: 600;')
 
-                ui.label(deal.formatted_price).style(
+                # Price with indicator if it's from explore (indicative) or confirm (bookable)
+                price_label = deal.formatted_price
+                if not deal.airline or deal.airline.startswith('http'):
+                    price_label += ' *'  # Indicative price marker
+                ui.label(price_label).style(
                     'font-size: 2rem; font-weight: 700; font-family: monospace;'
                 ).classes('text-gradient')
 
@@ -642,8 +661,12 @@ class FlightSearchApp:
                     else:
                         ui.html(f'<span class="chip">{deal.transfers} stops</span>', sanitize=False)
 
+                # Show airline if available (from confirm results)
+                if deal.airline and not deal.airline.startswith('http'):
+                    ui.html(f'<span class="chip">{deal.airline}</span>', sanitize=False)
+
             # CTAs - Direct links
-            with ui.row().style('width: 100%; gap: 12px; flex-wrap: wrap;'):
+            with ui.row().style('width: 100%; gap: 12px; flex-wrap: wrap; align-items: center;'):
                 google_url = self._generate_google_flights_url(deal)
                 booking_url = self._generate_booking_url(deal)
 
@@ -654,6 +677,86 @@ class FlightSearchApp:
                 # Booking.com link button
                 with ui.link(target=booking_url, new_tab=True).style('text-decoration: none;'):
                     ui.button('View on Booking', icon='hotel').classes('btn-primary').props('no-caps')
+
+                # Confirm button - only show if using Amadeus and this is an explore result
+                if isinstance(api_client, AmadeusFlightsClient):
+                    remaining = api_client.get_remaining_confirm_calls()
+                    if remaining > 0:
+                        confirm_btn = ui.button(
+                            f'Check Real Prices ({remaining} left)',
+                            icon='verified',
+                            on_click=lambda d=deal: self._confirm_deal(d)
+                        ).classes('btn-secondary').props('no-caps')
+                        confirm_btn.tooltip('Get current bookable prices from airlines')
+                    else:
+                        ui.label('Price checks exhausted').classes('text-muted').style('font-size: 0.8rem;')
+
+    async def _confirm_deal(self, deal: FlightDeal):
+        '''Get real-time bookable prices for a specific deal using Amadeus Confirm API.'''
+        if not isinstance(api_client, AmadeusFlightsClient):
+            self._safe_notify('Confirm not available with current API', 'warning')
+            return
+
+        self._safe_notify(f'Checking real prices for {deal.dest_city}...', 'info')
+
+        try:
+            # Run in thread to avoid blocking
+            offers = await asyncio.to_thread(
+                api_client.get_confirm_offers,
+                origin=deal.origin_iata,
+                destination=deal.dest_iata,
+                date=deal.depart_date[:10],
+                adults=1,
+                currency="EUR"
+            )
+
+            if offers:
+                # Show results in a dialog
+                self._show_confirm_dialog(deal, offers)
+            else:
+                self._safe_notify('No bookable offers found for this route/date', 'warning')
+
+        except AmadeusAPIError as e:
+            if e.code.value == 'AMADEUS_RATE_LIMITED':
+                self._safe_notify('Price check limit reached. Try again in 10 minutes.', 'warning')
+            else:
+                self._safe_notify(f'Failed to get prices: {e.message}', 'negative')
+        except Exception as e:
+            self._safe_notify(f'Error: {str(e)}', 'negative')
+
+    def _show_confirm_dialog(self, original_deal: FlightDeal, offers: List[FlightDeal]):
+        '''Show dialog with confirmed bookable offers.'''
+        with ui.dialog() as dialog, ui.card().style('min-width: 500px; max-width: 700px; padding: 24px;'):
+            ui.label(f'✈️ Bookable Flights to {original_deal.dest_city}').style(
+                'font-size: 1.3rem; font-weight: 600; margin-bottom: 16px;'
+            )
+            ui.label(f'Departure: {original_deal.depart_date[:10]}').classes('text-muted').style('margin-bottom: 16px;')
+
+            remaining = api_client.get_remaining_confirm_calls() if isinstance(api_client, AmadeusFlightsClient) else 0
+            ui.label(f'Remaining price checks: {remaining}').classes('text-muted').style('font-size: 0.8rem; margin-bottom: 16px;')
+
+            with ui.column().style('gap: 12px; width: 100%; max-height: 400px; overflow-y: auto;'):
+                for offer in offers[:5]:  # Show top 5
+                    with ui.card().style('padding: 16px; width: 100%;'):
+                        with ui.row().style('justify-content: space-between; align-items: center;'):
+                            with ui.column().style('gap: 4px;'):
+                                airline_text = offer.airline if offer.airline else 'Unknown Airline'
+                                ui.label(airline_text).style('font-weight: 600;')
+                                stops_text = 'Direct' if offer.transfers == 0 else f'{offer.transfers} stop(s)'
+                                ui.label(stops_text).classes('text-muted').style('font-size: 0.9rem;')
+
+                            ui.label(offer.formatted_price).style(
+                                'font-size: 1.5rem; font-weight: 700;'
+                            ).classes('text-gradient')
+
+            with ui.row().style('gap: 12px; margin-top: 16px; justify-content: flex-end;'):
+                # Open Google Flights for booking
+                google_url = self._generate_google_flights_url(original_deal)
+                with ui.link(target=google_url, new_tab=True).style('text-decoration: none;'):
+                    ui.button('Book on Google Flights', icon='flight').classes('btn-primary').props('no-caps')
+                ui.button('Close', on_click=dialog.close).classes('btn-secondary')
+
+        dialog.open()
 
     def _generate_google_flights_url(self, deal: FlightDeal) -> str:
         '''Generate Google Flights search URL.'''
@@ -722,12 +825,13 @@ class FlightSearchApp:
             ui.label('❓ Frequently Asked Questions').style('font-size: 1.2rem; font-weight: 600;')
 
             faqs = [
-                ('What is this app?', 'A local flight deal finder that searches cached price data from Travelpayouts/Aviasales to inspire your travel plans.'),
-                ('Are prices real-time?', 'No. Prices are 2-7 days old (cached search data from other users). Always verify on booking sites.'),
-                ('Why are some routes empty?', 'The API only has data for popular routes with recent search activity. Try different dates or destinations.'),
-                ('What does "cached" mean?', 'The API returns prices from recent user searches, not live airline data. This makes searches fast but prices may change.'),
-                ('How do links work?', 'Google Flights link opens a search. Booking link uses Travelpayouts deep link or Aviasales search.'),
-                ('Privacy?', 'Runs 100% locally. Only calls Travelpayouts API for flight data. No tracking or analytics.')
+                ('What is this app?', 'A local flight deal finder that uses the Amadeus API to discover cheap destinations with minimal API calls, and optionally confirm real-time prices.'),
+                ('How does the search work?', 'EXPLORE mode uses 1-3 API calls to find destination ideas for an entire month. Prices shown are indicative (marked with *).'),
+                ('What is "Check Real Prices"?', 'This uses CONFIRM mode to get actual bookable prices from airlines. Limited to 3 checks per 10 minutes to respect API quotas.'),
+                ('Are prices real-time?', 'Explore prices are indicative. Use "Check Real Prices" for current bookable fares. Always verify on booking sites before purchasing.'),
+                ('Why the call limits?', 'Amadeus API has quotas. We use minimal calls (1-3 for explore, max 3 for confirm) to stay within limits while providing useful data.'),
+                ('How do links work?', 'Google Flights opens a search with your route and dates. Booking.com shows hotels at your destination.'),
+                ('Privacy?', 'Runs 100% locally. Only calls Amadeus API for flight data. No tracking or analytics.')
             ]
 
             for question, answer in faqs:
@@ -754,8 +858,8 @@ class FlightSearchApp:
 
                             with ui.element('p').classes('footer-panel-text'):
                                 ui.html('''
-                                    Flight prices displayed are <strong>cached data</strong> from the Travelpayouts API, 
-                                    typically 2–7 days old. Prices are <em>not real-time</em> and may differ from current rates. 
+                                    Explore prices are <strong>indicative</strong> from the Amadeus Flight Inspiration API. 
+                                    Use "Check Real Prices" for <em>current bookable fares</em>. 
                                     Always verify pricing on the booking site before purchasing.
                                 ''', sanitize=False)
 
@@ -766,7 +870,7 @@ class FlightSearchApp:
                                         <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
                                     </svg>
                                 ''', sanitize=False)
-                                ui.label('Updated every 2–7 days · For inspiration only')
+                                ui.label('Cached 6-24h · Use "Check Real Prices" for live rates')
 
                         with ui.element('div').classes('footer-section is-powered'):
                             ui.html('<span class="footer-section-label">Powered By</span>', sanitize=False)
@@ -860,9 +964,28 @@ nicegui_app.add_static_files('/static', 'static')
 
 
 if __name__ in {'__main__', '__mp_main__'}:
-    if not API_TOKEN:
-        print('WARNING: TRAVELPAYOUTS_TOKEN not set in .env file')
-        print('Please create a .env file with your API token.')
+    print('=' * 50)
+    print('Flight Deal Finder v2.0 - Amadeus Integration')
+    print('=' * 50)
+
+    if AMADEUS_CLIENT_ID and AMADEUS_CLIENT_SECRET:
+        print('✓ Amadeus API configured (primary)')
+        print(f'  Base URL: {os.getenv("AMADEUS_BASE_URL", "https://test.api.amadeus.com")}')
+        print(f'  Mode: {os.getenv("AMADEUS_MODE", "test")}')
+    else:
+        print('✗ Amadeus API not configured')
+        print('  Set AMADEUS_CLIENT_ID and AMADEUS_CLIENT_SECRET in .env')
+
+    if API_TOKEN:
+        print('✓ Travelpayouts API configured (fallback)')
+    else:
+        print('✗ Travelpayouts API not configured')
+
+    if not AMADEUS_CLIENT_ID and not API_TOKEN:
+        print('\nWARNING: No API configured!')
+        print('Please set up at least one API in your .env file.')
+
+    print('=' * 50)
 
     ui.run(
         title='Flight Deal Finder',
