@@ -2,6 +2,7 @@
 Caching module for API responses.
 Uses SQLite for lightweight disk-based caching.
 '''
+
 import sqlite3
 import json
 import hashlib
@@ -39,7 +40,7 @@ class APICache:
                 )
             ''')
             conn.execute('''
-                CREATE INDEX IF NOT EXISTS idx_expires_at 
+                CREATE INDEX IF NOT EXISTS idx_expires_at
                 ON cache(expires_at)
             ''')
             conn.commit()
@@ -120,7 +121,8 @@ class APICache:
             )
             deleted = cursor.rowcount
             conn.commit()
-            return deleted
+
+        return deleted
 
     def clear_all(self):
         '''Clear all cached data.'''

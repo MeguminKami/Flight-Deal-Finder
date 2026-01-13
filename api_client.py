@@ -2,19 +2,20 @@
 Travelpayouts/Aviasales Data API client.
 Handles API requests with retry logic, rate limiting, and caching.
 '''
+
 import requests
 import time
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
 import logging
+
 from cache import get_cache
 from models import FlightDeal
 from airports import get_airport_db
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class APIConfig:
@@ -65,7 +66,6 @@ class TravelpayoutsClient:
         for attempt in range(self.config.max_retries):
             try:
                 self._rate_limit()
-
                 response = self.session.get(
                     url,
                     params=params,
@@ -155,7 +155,8 @@ class TravelpayoutsClient:
         min_days: int,
         max_days: int,
         max_results: int = 1000,
-        progress_callback = None
+        progress_callback = None,
+        cancel_flag: dict = None
     ) -> List[FlightDeal]:
         '''
         Search for flight deals across multiple destinations and periods.
@@ -169,6 +170,7 @@ class TravelpayoutsClient:
             max_days: Maximum trip duration
             max_results: Maximum results to return
             progress_callback: Optional callback(current, total, message)
+            cancel_flag: Optional dict with 'cancelled' key to check for cancellation
 
         Returns:
             List of FlightDeal objects sorted by price
@@ -181,11 +183,15 @@ class TravelpayoutsClient:
             return []
 
         periods = self._generate_periods(start_date, end_date)
-
         total_queries = len(destinations) * len(periods)
         current_query = 0
 
         for destination in destinations:
+            # Check for cancellation
+            if cancel_flag and cancel_flag.get('cancelled', False):
+                logger.info("Search cancelled by user")
+                break
+
             if destination == origin:
                 continue
 
@@ -195,8 +201,12 @@ class TravelpayoutsClient:
                 continue
 
             for period in periods:
-                current_query += 1
+                # Check for cancellation
+                if cancel_flag and cancel_flag.get('cancelled', False):
+                    logger.info("Search cancelled by user")
+                    break
 
+                current_query += 1
                 if progress_callback:
                     progress_callback(
                         current_query,
@@ -251,7 +261,6 @@ class TravelpayoutsClient:
         '''Parse API response data into FlightDeal object.'''
         try:
             price = float(data.get('value', data.get('price', 0)))
-
             depart_date = data.get('departure_at', data.get('depart_date', ''))
             return_date = data.get('return_at', data.get('return_date', ''))
 
@@ -278,10 +287,10 @@ class TravelpayoutsClient:
                 depart_date=depart_date,
                 return_date=return_date,
                 price_eur=price,
-                transfers=(int(data.get('transfers', data.get('number_of_changes'))) if data.get('transfers', data.get('number_of_changes')) is not None else None),
+                transfers=data.get('transfers', data.get('number_of_changes')),
                 airline=data.get('airline'),
                 flight_number=data.get('flight_number'),
-                deep_link=data.get('link') or data.get('deep_link'),
+                deep_link=data.get('link'),
                 found_at=datetime.utcnow(),
                 expires_at=expires_at,
                 raw_payload=data
@@ -305,7 +314,6 @@ class TravelpayoutsClient:
                 deal.depart_date[:10],
                 deal.return_date[:10]
             )
-
             if key not in seen:
                 seen.add(key)
                 unique_deals.append(deal)

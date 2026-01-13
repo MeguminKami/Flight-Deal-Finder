@@ -1,11 +1,11 @@
 """
 Airport data management module.
 """
+
 import json
 from pathlib import Path
 from typing import List, Optional, Dict
 from models import Airport
-
 
 class AirportDatabase:
     """Manages the airport dataset."""
@@ -54,6 +54,35 @@ class AirportDatabase:
         """Get all airports in a continent."""
         return [a for a in self.airports if a.continent == continent]
 
+    def get_airports_by_country(self, country: str) -> List[Airport]:
+        """Get all airports in a country."""
+        return [a for a in self.airports if a.country == country]
+
+    def get_countries(self) -> List[tuple]:
+        """Get list of all unique countries with their country codes."""
+        countries = {}
+        for a in self.airports:
+            if a.country not in countries:
+                countries[a.country] = a.country_code
+        return sorted(countries.items(), key=lambda x: x[0])
+
+    def get_countries_for_dropdown(self) -> List[tuple]:
+        """Get countries formatted for dropdown with flags."""
+        countries = self.get_countries()
+        result = []
+        for country_name, country_code in countries:
+            # Generate flag emoji from country code
+            if country_code and len(country_code) == 2:
+                try:
+                    code_points = [ord(char) + 127397 for char in country_code.upper()]
+                    flag = chr(code_points[0]) + chr(code_points[1])
+                except:
+                    flag = "🌍"
+            else:
+                flag = "🌍"
+            result.append((f"{flag} {country_name}", country_name))
+        return result
+
     def get_all_airports(self) -> List[Airport]:
         """Get all airports."""
         return self.airports.copy()
@@ -78,7 +107,7 @@ class AirportDatabase:
         """Get continents formatted for dropdown."""
         continents = self.get_continents()
         return [
-            (self.get_continent_display_name(c), c) 
+            (self.get_continent_display_name(c), c)
             for c in continents
         ]
 
