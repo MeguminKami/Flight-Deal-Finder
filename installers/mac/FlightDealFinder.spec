@@ -130,7 +130,7 @@ app = BUNDLE(
 )
 
 coll = COLLECT(
-    app,
+    app,  # important: pass the BUNDLE (which contains the EXE) into COLLECT
     a.binaries,
     a.zipfiles,
     a.datas,
@@ -138,4 +138,3 @@ coll = COLLECT(
     upx=False,
     name=APP_NAME,
 )
-
