@@ -1,43 +1,42 @@
 # CI build script for Windows (GitHub Actions)
-}
-    Pop-Location
-finally {
-}
-    Write-Host "Windows artifact created: $destPath"
-    Copy-Item -Force -Path $builtInstaller.FullName -Destination $destPath
+# Produces exactly one primary deliverable under installers/windows/
 
-    $destPath = Join-Path $WindowsOutDir $destName
-    $destName = "$AppName-win-x64-$Tag.exe"
-
-    }
-        throw 'Windows installer build succeeded but no .exe found under installers/win/output'
-    if (-not $builtInstaller) {
-
-        Select-Object -First 1
-        Sort-Object LastWriteTime -Descending |
-    $builtInstaller = Get-ChildItem -Path (Join-Path $WinInstallerDir 'output') -Filter '*.exe' |
-
-    .\build.ps1 -Clean -Version $Version
-    # Inno Setup is installed in the workflow.
-    # Repo-native build: PyInstaller + Inno Setup
-try {
-Push-Location $WinInstallerDir
-
-New-Item -ItemType Directory -Force -Path $WindowsOutDir | Out-Null
-
-$Version = $Tag.TrimStart('v')
-$AppName = 'FlightDealFinder'
-
-$WindowsOutDir = Join-Path $ProjectRoot 'installers\windows'
-$WinInstallerDir = Join-Path $ProjectRoot 'installers\win'
-$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").Path
+param(
+    [Parameter(Mandatory = $true)]
+    [string]$Tag
+)
 
 $ErrorActionPreference = 'Stop'
 
-)
-    [string]$Tag
-    [Parameter(Mandatory = $true)]
-param(
+$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").Path
+$WinInstallerDir = Join-Path $ProjectRoot 'installers\win'
+$WindowsOutDir = Join-Path $ProjectRoot 'installers\windows'
 
-# Produces exactly one primary deliverable under installers/windows/
+$AppName = 'FlightDealFinder'
+$Version = $Tag.TrimStart('v')
 
+New-Item -ItemType Directory -Force -Path $WindowsOutDir | Out-Null
+
+Push-Location $WinInstallerDir
+try {
+    # Repo-native build: PyInstaller + Inno Setup
+    # Inno Setup is installed in the workflow.
+    .\build.ps1 -Clean -Version $Version
+
+    $builtInstaller = Get-ChildItem -Path (Join-Path $WinInstallerDir 'output') -Filter '*.exe' |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
+
+    if (-not $builtInstaller) {
+        throw 'Windows installer build succeeded but no .exe found under installers/win/output'
+    }
+
+    $destName = "$AppName-win-x64-$Tag.exe"
+    $destPath = Join-Path $WindowsOutDir $destName
+
+    Copy-Item -Force -Path $builtInstaller.FullName -Destination $destPath
+    Write-Host "Windows artifact created: $destPath"
+}
+finally {
+    Pop-Location
+}
