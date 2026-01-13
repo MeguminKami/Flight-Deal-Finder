@@ -129,12 +129,5 @@ app = BUNDLE(
     bundle_identifier=None,
 )
 
-coll = COLLECT(
-    app,  # important: pass the BUNDLE (which contains the EXE) into COLLECT
-    a.binaries,
-    a.zipfiles,
-    a.datas,
-    strip=False,
-    upx=False,
-    name=APP_NAME,
-)
+# Note: For a macOS .app bundle, BUNDLE() is the final build target.
+# Using COLLECT() here can trigger "No EXE() instance was passed to COLLECT()" depending on PyInstaller version.
