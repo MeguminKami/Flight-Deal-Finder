@@ -12,6 +12,9 @@ APP_NAME = 'FlightDealFinder'
 
 block_cipher = None
 
+# macOS app icon (.icns) lives next to this spec file
+MAC_ICON_PATH = os.path.join(SPEC_DIR, 'icon.icns')
+
 nicegui_datas = collect_data_files('nicegui')
 
 hidden_imports = [
@@ -120,12 +123,13 @@ exe = EXE(
     upx=False,
     console=False,
     argv_emulation=False,
+    icon=MAC_ICON_PATH if os.path.exists(MAC_ICON_PATH) else None,
 )
 
 app = BUNDLE(
     exe,
     name=f"{APP_NAME}.app",
-    icon=None,
+    icon=MAC_ICON_PATH if os.path.exists(MAC_ICON_PATH) else None,
     bundle_identifier=None,
 )
 
