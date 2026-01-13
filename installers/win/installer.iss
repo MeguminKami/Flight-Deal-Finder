@@ -113,6 +113,9 @@ Source: "dist\\{#AppNameNoSpaces}\\*"; DestDir: "{app}"; Flags: ignoreversion re
 ; Optional config template (non-secret)
 Source: "..\\..\\config.env.example"; DestDir: "{app}"; Flags: ignoreversion
 
+; Auto-provision user config on install (only if it doesn't already exist)
+Source: "..\\..\\config.env.example"; DestDir: "{localappdata}\\{#AppNameNoSpaces}"; DestName: "config.env"; Flags: onlyifdoesntexist uninsneveruninstall ignoreversion
+
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
