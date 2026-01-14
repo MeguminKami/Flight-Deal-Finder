@@ -1,146 +1,149 @@
-# ✈️ Flight Deal Finder
+# ✈️ Flight Deal Finder — Simple Guide
 
-A **local, friendly flight-deal explorer** that helps you discover cheap round‑trip trips using **cached airfare data** (not live airline pricing). It’s designed to **inspire travel ideas** and surface “wow, that’s cheap” routes quickly — then you verify and book on your preferred site.
-
----
-
-## What this app does
-
-- **Search flight deals** from an origin airport to:
-  - a **specific airport**
-  - **all airports worldwide**
-  - a **continent**
-  - a **country**
-- Filter trips by **date range** and **trip length** (min/max days).
-- See results as clean “deal cards” with:
-  - route, dates, trip duration
-  - whether it’s **direct** or has stops
-  - price (EUR)
-- Open one‑click links to:
-  - **Google Flights** (to validate and explore options)
-  - **Booking** (quick destination + date handoff for planning)
+A friendly app that helps you **discover cheap round‑trip flight ideas** based on **recent airfare snapshots** (not live airline prices). It’s built for people who want inspiration fast — then confirm and book wherever you prefer.
 
 ---
 
-## Important: prices are not real‑time
+## What you can do
 
-This app uses **cached search data** from the Travelpayouts/Aviasales ecosystem. That means:
-
-- prices are typically **2–7 days old**
-- some routes may have **no results** (because there wasn’t recent search activity)
-- prices can change — **always confirm before buying**
-
-Think of it like a **radar for travel inspiration**, not a live booking engine.
-
----
-
-## Privacy
-
-- Runs **100% locally** on your computer.
-- The only external calls are to the **Travelpayouts API** to fetch flight price data.
-- No tracking, no analytics.
+- **Start from any origin airport** (type to search).
+- Explore deals to:
+  - **One specific airport**
+  - **Anywhere in the world**
+  - A **continent**
+  - A **country**
+- Choose a **date window** (when you could travel).
+- Choose **trip length** (e.g., 3–5 days, 7–10 days).
+- Browse results as “deal cards” showing:
+  - route (from → to)
+  - dates and trip duration
+  - whether it’s **direct** or has **stops**
+  - estimated price (EUR)
 
 ---
 
-## Getting started (simple)
+## How it works (in plain language)
 
-### 1) Get an API token
-You’ll need a **Travelpayouts token**.
+1. You tell the app:
+   - where you’re flying from,
+   - where you want to explore (specific place / region / anywhere),
+   - the dates you’re open to,
+   - and how long you want to travel.
 
-### 2) Add the token
-Set `TRAVELPAYOUTS_TOKEN` in *one* of these places:
+2. The app looks up **recently observed prices** from a flight‑search data source.
 
-1. **Environment variable**: `TRAVELPAYOUTS_TOKEN`
-2. **User config file**: `config.env` inside your user config folder  
-3. **Portable config**: `config.env` next to the app/executable  
-
-A `config.env` file looks like this:
-
-```
-TRAVELPAYOUTS_TOKEN=YOUR_TOKEN_HERE
-```
-
-### 3) Run the app
-If you’re running from source, the simplest launch is:
-
-```
-python app.py
-```
-
-The app opens in your browser (local server), usually on port **8080**.
+3. It shows you the best matches it can find, then gives you buttons to:
+   - **Open Google Flights** (to confirm price and view real options)
+   - **Open Booking** (to start planning stays for those dates)
 
 ---
 
-## Using the app
+## Important: prices are not live
 
-1. Pick your **origin airport** (start typing to search).
-2. Choose where you want to explore:
-   - **Specific airport**
-   - **Entire world**
-   - **By continent**
-   - **By country**
-3. Select your **start and end dates**.
-4. Choose **min/max trip length** in days.
-5. Hit **Search Flights**.
-6. Browse deals and open:
-   - **Google Flights** to verify and compare
-   - **Booking** for quick planning
+This app is a **deal discovery tool**, not a booking engine.
 
-Tip: If you start a big worldwide search and want to stop, hit **Stop Search**.
+That means:
+- The prices are often **a few days old**
+- Some routes may show **no results** (especially uncommon routes)
+- Prices can change quickly — always **confirm before buying**
+
+Best mindset:  
+**“Inspiration + shortlist” → then validate on Google Flights → then book.**
 
 ---
 
-## Caching (why it feels fast)
+## How to use the app
 
-To avoid re-fetching the same data repeatedly, the app stores recent API responses in a lightweight local cache:
+### Step 1 — Pick your origin
+Start typing your city or airport code and select your airport.
 
-- stored on disk using **SQLite**
-- automatically expires after a short time (TTL)
-- includes a “System Information” view where you can check cache stats and clear it
+### Step 2 — Choose your destination style
+Pick one:
+- **Specific airport** (e.g., “JFK”)
+- **Country** (e.g., “Japan”)
+- **Continent** (e.g., “Europe”)
+- **Anywhere** (worldwide exploration)
 
-This keeps repeated searches snappy and reduces API calls.
+### Step 3 — Select your travel flexibility
+- Choose your **earliest** and **latest** departure dates.
+- Set a **minimum and maximum trip length** (days).
+
+### Step 4 — Search and browse
+Hit **Search Flights** and scroll through the deals.
+
+Tip: Worldwide searches can be big. If you change your mind, use **Stop Search**.
+
+### Step 5 — Confirm and book
+Use the provided buttons:
+- **Google Flights**: confirm real‑time price and schedules
+- **Booking**: jump into planning accommodation
 
 ---
 
-## What’s inside (high level)
+## What makes a “good” search
 
-- **App UI**: A modern web interface with light/dark theme and pagination.
-- **Flight data client**: Talks to the Travelpayouts API with rate limiting and retries.
-- **Airport database**: Local `airports.json` file that powers dropdowns and flags.
-- **Cache**: Local SQLite database to reuse responses safely.
+If you’re not seeing much, try:
+- widening your date window (even +7 days helps)
+- increasing max trip length (e.g., from 5 to 10 days)
+- exploring a continent or country instead of one airport
+- trying another origin airport nearby
+- searching popular hubs (major cities often have more data)
 
 ---
 
-## Troubleshooting
+## FAQs
 
-**“API token not configured”**  
-Add `TRAVELPAYOUTS_TOKEN` using one of the methods above and restart the app.
+### Is this a booking app?
+No. It helps you **find ideas** and then sends you to other sites to **confirm and book**.
 
-**No results / empty routes**  
-Try:
-- expanding date range
-- choosing a different destination or popular city
-- searching a continent/country instead of a single airport
+### Why do some destinations show nothing?
+Sometimes there simply isn’t recent data available for that route/date window. Try broader filters.
 
-**Prices differ on booking sites**  
-Normal — the data is cached. Use the Google Flights link to confirm.
+### Why is the price different when I open Google Flights?
+Because prices are not live. Airlines update prices constantly, and availability changes.
+
+### Does it include baggage, seats, or airline fees?
+Typically no. Treat the displayed price as a **starting point**, then confirm full details on Google Flights.
+
+### Can I search one‑way flights?
+This app focuses on **round‑trip** deal discovery.
+
+### What currency are prices shown in?
+Prices are shown in **EUR**.
+
+### Does it work offline?
+You can open the app, but searching needs an internet connection to fetch flight‑price data.
+
+### Is my data private?
+Yes:
+- The app runs on your computer.
+- It does not upload your personal history anywhere.
+- It only requests flight‑price data to fulfill the searches you run.
+
+---
+
+## Notes & limitations
+
+- Results depend on **data coverage** (popular routes tend to work best).
+- “Direct vs stops” is informational — always confirm details on the verification site.
+- If you search “Anywhere”, you may see a lot of results; narrowing by region can help.
+
+---
+
+## Quick glossary
+
+- **Origin**: Where you start your trip.
+- **Destination**: Where you want to go.
+- **Trip length**: Number of days between departure and return.
+- **Direct**: No stops.
+- **Stops**: One or more connections.
 
 ---
 
 ## Disclaimer
 
-This project helps you **discover** potential deals. It does not guarantee availability or pricing. Always confirm details on the airline/booking site before purchasing.
+This app helps you discover potential deals, but it can’t guarantee availability or pricing. Always verify details and total cost on the booking/airline site before purchasing.
 
 ---
 
-## Credits
-
-Built with ❤️ using:
-- **Python**
-- **NiceGUI**
-- **Travelpayouts / Aviasales cached flight data**
-- Helpful planning links via **Google Flights** and **Booking**
-
----
-
-Happy exploring — and may the cheap flights find you ✨
+Have fun exploring — and may the cheap flights find you ✨
