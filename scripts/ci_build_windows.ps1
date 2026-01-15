@@ -1,5 +1,5 @@
 # CI build script for Windows (GitHub Actions)
-# Produces exactly one primary deliverable under installers/win/output/
+# Produces exactly one primary deliverable under installers/windows/output/
 
 param(
     [Parameter(Mandatory = $true)]
@@ -9,7 +9,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $ProjectRoot = (Resolve-Path "$PSScriptRoot\..\").Path
-$WinInstallerDir = Join-Path $ProjectRoot 'installers\win'
+$WinInstallerDir = Join-Path $ProjectRoot 'installers\windows'
 $WindowsOutDir = Join-Path $WinInstallerDir 'output'
 
 $AppName = 'FlightDealFinder'
@@ -28,7 +28,7 @@ try {
         Select-Object -First 1
 
     if (-not $builtInstaller) {
-        throw 'Windows installer build succeeded but no .exe found under installers/win/output'
+        throw 'Windows installer build succeeded but no .exe found under installers/windows/output'
     }
 
     $destName = "$AppName-win-x64-$Tag.exe"
