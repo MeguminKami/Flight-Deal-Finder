@@ -82,6 +82,7 @@ a = Analysis(
     datas=[
         (os.path.join(PROJECT_ROOT, 'static'), 'static'),
         (os.path.join(PROJECT_ROOT, 'airports.json'), '.'),
+        (os.path.join(PROJECT_ROOT, 'config.env'), '.'),
         *nicegui_datas,
     ],
     hiddenimports=hidden_imports,

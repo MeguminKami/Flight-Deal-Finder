@@ -87,7 +87,7 @@ a = Analysis(
         # App-specific data files
         (os.path.join(PROJECT_ROOT, 'static'), 'static'),
         (os.path.join(PROJECT_ROOT, 'airports.json'), '.'),
-        (os.path.join(PROJECT_ROOT, 'config.env.example'), '.'),
+        (os.path.join(PROJECT_ROOT, 'config.env'), '.'),
         # NiceGUI data files
         *nicegui_datas,
     ],

@@ -1,5 +1,5 @@
 # CI build script for Windows (GitHub Actions)
-# Produces exactly one primary deliverable under installers/windows/
+# Produces exactly one primary deliverable under installers/win/output/
 
 param(
     [Parameter(Mandatory = $true)]
@@ -8,9 +8,9 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").Path
+$ProjectRoot = (Resolve-Path "$PSScriptRoot\..\").Path
 $WinInstallerDir = Join-Path $ProjectRoot 'installers\win'
-$WindowsOutDir = Join-Path $ProjectRoot 'installers\windows'
+$WindowsOutDir = Join-Path $WinInstallerDir 'output'
 
 $AppName = 'FlightDealFinder'
 $Version = $Tag.TrimStart('v')

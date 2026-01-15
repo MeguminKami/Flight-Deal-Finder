@@ -110,11 +110,15 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopShortcut}"; GroupDescription
 ; Main application files (from PyInstaller output)
 Source: "dist\\{#AppNameNoSpaces}\\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
+; App data files needed at runtime (if not already included in dist for some reason)
+Source: "..\\..\\airports.json"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\\..\\static\\*"; DestDir: "{app}\\static"; Flags: ignoreversion recursesubdirs createallsubdirs
+
 ; Optional config template (non-secret)
-Source: "..\\..\\config.env.example"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\\..\\config.env"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Auto-provision user config on install (only if it doesn't already exist)
-Source: "..\\..\\config.env.example"; DestDir: "{localappdata}\\{#AppNameNoSpaces}"; DestName: "config.env"; Flags: onlyifdoesntexist uninsneveruninstall ignoreversion
+Source: "..\\..\\config.env"; DestDir: "{localappdata}\\{#AppNameNoSpaces}"; DestName: "config.env"; Flags: onlyifdoesntexist uninsneveruninstall ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
