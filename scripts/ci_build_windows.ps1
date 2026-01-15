@@ -36,6 +36,12 @@ try {
 
     Copy-Item -Force -Path $builtInstaller.FullName -Destination $destPath
     Write-Host "Windows artifact created: $destPath"
+
+    # Compatibility: some CI workflows expect the .exe directly under installers/windows/
+    # (e.g., path: installers/windows/*.exe). Keep a copy there to avoid "No files were found".
+    $legacyDestPath = Join-Path $WinInstallerDir $destName
+    Copy-Item -Force -Path $builtInstaller.FullName -Destination $legacyDestPath
+    Write-Host "Windows artifact (legacy path) created: $legacyDestPath"
 }
 finally {
     Pop-Location
