@@ -71,9 +71,9 @@ secrets.json
 # =============================================================================
 # Build Outputs - Windows Installer
 # =============================================================================
-installers/win/build/
-installers/win/dist/
-installers/win/output/
+installers/windows/build/
+installers/windows/dist/
+installers/windows/output/
 installers/win/*.exe
 
 # =============================================================================

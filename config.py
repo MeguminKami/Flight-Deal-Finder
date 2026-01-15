@@ -115,7 +115,7 @@ def _is_placeholder(value: str) -> bool:
 def load_dotenv_once() -> Optional[Path]:
     """Load config.env if present.
 
-    Default behavior is env vars win. But if env vars are missing or placeholders,
+    Default behavior is env vars windows. But if env vars are missing or placeholders,
     we allow config.env to replace them (common in packaged apps).
 
     Important:
