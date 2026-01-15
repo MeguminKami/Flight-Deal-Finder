@@ -6,7 +6,7 @@ Uses SQLite for lightweight disk-based caching.
 import sqlite3
 import json
 import hashlib
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional, Any
 import threading
@@ -77,14 +77,14 @@ class APICache:
             value_json, expires_at_str = row
             expires_at = datetime.fromisoformat(expires_at_str)
 
-            if datetime.utcnow() > expires_at:
+            if datetime.now(timezone.utc) > expires_at:
                 conn.execute('DELETE FROM cache WHERE key = ?', (key,))
                 conn.commit()
                 return None
 
             return json.loads(value_json)
 
-    def set(self, endpoint: str, params: dict, value: Any):
+    def set(self, endpoint: str, params: dict, value: Any, ttl_seconds: Optional[int] = None):
         '''
         Store a value in the cache.
 
@@ -92,11 +92,23 @@ class APICache:
             endpoint: API endpoint
             params: API parameters
             value: Data to cache
+            ttl_seconds: Optional per-entry TTL override (seconds). If not provided,
+                falls back to the instance ttl_hours.
         '''
         key = self._make_key(endpoint, params)
         value_json = json.dumps(value)
-        created_at = datetime.utcnow()
-        expires_at = created_at + timedelta(hours=self.ttl_hours)
+        created_at = datetime.now(timezone.utc)
+
+        ttl_s: Optional[int]
+        try:
+            ttl_s = int(ttl_seconds) if ttl_seconds is not None else None
+        except Exception:
+            ttl_s = None
+
+        if ttl_s is not None and ttl_s > 0:
+            expires_at = created_at + timedelta(seconds=ttl_s)
+        else:
+            expires_at = created_at + timedelta(hours=self.ttl_hours)
 
         with self._lock, sqlite3.connect(self.db_path) as conn:
             conn.execute('''
@@ -112,7 +124,7 @@ class APICache:
 
     def clear_expired(self):
         '''Remove all expired entries from the cache.'''
-        now = datetime.utcnow().isoformat()
+        now = datetime.now(timezone.utc).isoformat()
 
         with self._lock, sqlite3.connect(self.db_path) as conn:
             cursor = conn.execute(
@@ -136,7 +148,7 @@ class APICache:
             cursor = conn.execute('SELECT COUNT(*) FROM cache')
             total = cursor.fetchone()[0]
 
-            now = datetime.utcnow().isoformat()
+            now = datetime.now(timezone.utc).isoformat()
             cursor = conn.execute(
                 'SELECT COUNT(*) FROM cache WHERE expires_at < ?',
                 (now,)

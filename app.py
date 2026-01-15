@@ -17,15 +17,17 @@ if sys.stderr is None:
 from datetime import datetime, timedelta
 from typing import List, Optional
 from urllib.parse import urlencode
-from dotenv import load_dotenv
+
+import asyncio
 from nicegui import ui, app as nicegui_app
-from api_client import TravelpayoutsClient, APIConfig
+
 from airports import get_airport_db
 from models import FlightDeal
 from cache import get_cache
-import asyncio
-
 from config import load_config, config_help_text
+
+from api_amadeus import AmadeusClient, APIError as AmadeusAPIError
+from api_travelpayouts import TravelpayoutsClient, TravelpayoutsConfig
 
 
 def get_resource_path(relative_path: str) -> Path:
@@ -39,13 +41,32 @@ def get_resource_path(relative_path: str) -> Path:
     return base_path / relative_path
 
 
+
 # Remove implicit CWD-based dotenv loading; use explicit config discovery instead.
 _loaded = load_config()
-API_TOKEN = _loaded.token
 ITEMS_PER_PAGE = 10
 
 airport_db = get_airport_db()
-api_client = None
+
+# Instantiate clients lazily (but keep them cached across searches)
+_amadeus_client: AmadeusClient | None = None
+_travelpayouts_client: TravelpayoutsClient | None = None
+
+
+def _get_amadeus_client() -> AmadeusClient:
+    global _amadeus_client
+    if _amadeus_client is None:
+        _amadeus_client = AmadeusClient()
+    return _amadeus_client
+
+
+def _get_travelpayouts_client() -> TravelpayoutsClient:
+    global _travelpayouts_client
+    if _travelpayouts_client is None:
+        cfg = load_config()
+        _travelpayouts_client = TravelpayoutsClient(TravelpayoutsConfig(token=cfg.travelpayouts_token))
+    return _travelpayouts_client
+
 
 class FlightSearchApp:
     '''Main application controller with modernized UI.'''
@@ -82,6 +103,9 @@ class FlightSearchApp:
         self.results_section = None  # Container for results section
         self.eta_label = None  # ETA label during search
         self.dest_airport_label = None  # Label for destination dropdown
+
+        # Date validation / bounds
+        self.max_search_window_days = 365  # failsafe: prevent huge API scans
 
     def create_ui(self):
         '''Build the complete modernized UI.'''
@@ -192,6 +216,105 @@ class FlightSearchApp:
             self.theme_toggle_icon.props('name=dark_mode')
         self.theme_dark = not self.theme_dark
 
+    def _notify_caution(self, message: str) -> None:
+        """Non-blocking caution toast (mustard/yellow)."""
+        try:
+            ui.notify(message, type='warning', color='#FFB300')  # Runway Amber
+        except Exception:
+            print(f"CAUTION: {message}")
+
+    def _notify_blocking(self, message: str) -> None:
+        """Blocking error toast (orange)."""
+        try:
+            ui.notify(message, type='negative', color='#F59E0B')  # Warning Amber
+        except Exception:
+            print(f"ERROR: {message}")
+
+    def _parse_iso_date(self, value: Optional[str]) -> Optional[datetime]:
+        """Parse YYYY-MM-DD and return a datetime at midnight; returns None if invalid."""
+        if not value:
+            return None
+        try:
+            # date input provides YYYY-MM-DD
+            return datetime.fromisoformat(value)
+        except Exception:
+            return None
+
+    def _set_date_input_value(self, date_input, iso_value: str) -> None:
+        """Safely set a date input value without crashing UI context."""
+        try:
+            if date_input:
+                date_input.value = iso_value
+                date_input.update()
+        except Exception:
+            pass
+
+    def _apply_date_constraints(self, *, show_toasts: bool = True) -> bool:
+        """Validate and normalize date values.
+
+        Contract:
+        - Ensures start/end parse correctly
+        - Ensures end >= start
+        - Ensures (end-start) <= max_search_window_days (prevent huge API scans)
+        - start_date and end_date define the SEARCH WINDOW (when flights can depart)
+        - min_days and max_days define TRIP DURATION (how long the vacation is)
+        - These are independent concepts!
+
+        Returns True if inputs are valid enough to search; False if search must be blocked.
+        """
+        start_dt = self._parse_iso_date(self.start_date)
+        end_dt = self._parse_iso_date(self.end_date)
+
+        if start_dt is None or end_dt is None:
+            if show_toasts:
+                self._notify_blocking('Please select valid start and end dates.')
+            return False
+
+        # Basic bounds: do not allow searching in the past beyond today (soft clamp)
+        today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+        if start_dt < today:
+            start_dt = today
+            iso = start_dt.strftime('%Y-%m-%d')
+            self.start_date = iso
+            self._set_date_input_value(self.start_date_input, iso)
+            if show_toasts:
+                self._notify_caution('Start date adjusted to today (cannot search the past).')
+
+        # Enforce end >= start; if user tries earlier, snap to start
+        if end_dt < start_dt:
+            end_dt = start_dt
+            iso = end_dt.strftime('%Y-%m-%d')
+            self.end_date = iso
+            self._set_date_input_value(self.end_date_input, iso)
+            if show_toasts:
+                self._notify_caution('End date cannot be before start date. Adjusted to match start date.')
+
+
+        # Global failsafe: prevent huge ranges (block search if still too big)
+        if (end_dt - start_dt).days > self.max_search_window_days:
+            if show_toasts:
+                self._notify_blocking(f'Date range too large. Please keep the search window within {self.max_search_window_days} days.')
+            return False
+
+        return True
+
+    def _on_start_date_changed(self, e) -> None:
+        self.start_date = e.sender.value
+        # Ensure end is not before start
+        self._apply_date_constraints(show_toasts=True)
+
+    def _on_end_date_changed(self, e) -> None:
+        self.end_date = e.sender.value
+        # Ensure end never crosses start
+        self._apply_date_constraints(show_toasts=True)
+
+    def _on_max_days_changed(self, e) -> None:
+        try:
+            self.max_days = int(e.sender.value or 1)
+        except Exception:
+            self.max_days = 1
+        # Max days only affects trip duration filtering, not the search window
+
     def _create_search_form(self):
         '''Create modernized search controls.'''
         with ui.column().classes('theme-card').style('width: 100%; padding: 32px; gap: 24px;'):
@@ -239,14 +362,17 @@ class FlightSearchApp:
                     default_start = (datetime.now() + timedelta(days=30)).strftime('%Y-%m-%d')
                     self.start_date_input = ui.input(value=default_start).classes('theme-input date-input').props('type=date').style('width: 100%;')
                     self.start_date = default_start
-                    self.start_date_input.on('change', lambda e: setattr(self, 'start_date', e.sender.value))
+                    # Clicking the field should open the picker (not only the calendar icon)
+                    self.start_date_input.on('focus', lambda e: e.sender.show_picker())
+                    self.start_date_input.on('change', self._on_start_date_changed)
 
                 with ui.column().style('flex: 1; min-width: 200px;'):
                     ui.label('📅 End Date').classes('text-muted').style('font-weight: 500; margin-bottom: 8px; font-size: 0.9rem;')
                     default_end = (datetime.now() + timedelta(days=60)).strftime('%Y-%m-%d')
                     self.end_date_input = ui.input(value=default_end).classes('theme-input date-input').props('type=date').style('width: 100%;')
                     self.end_date = default_end
-                    self.end_date_input.on('change', lambda e: setattr(self, 'end_date', e.sender.value))
+                    self.end_date_input.on('focus', lambda e: e.sender.show_picker())
+                    self.end_date_input.on('change', self._on_end_date_changed)
 
                 with ui.column().style('flex: 0.5; min-width: 120px;'):
                     ui.label('⏱️ Min Days').classes('text-muted').style('font-weight: 500; margin-bottom: 8px; font-size: 0.9rem;')
@@ -256,7 +382,8 @@ class FlightSearchApp:
                 with ui.column().style('flex: 0.5; min-width: 120px;'):
                     ui.label('⏱️ Max Days').classes('text-muted').style('font-weight: 500; margin-bottom: 8px; font-size: 0.9rem;')
                     self.max_days_input = ui.number(value=self.max_days, min=1, max=30).classes('theme-input number-input').style('width: 100%;')
-                    self.max_days_input.on('change', lambda e: setattr(self, 'max_days', int(e.sender.value or 1)))
+                    self.max_days_input.on('change', self._on_max_days_changed)
+
 
             # Search button and progress - full width with margin
             with ui.column().style('width: 100%; gap: 12px; margin-top: 24px;'):
@@ -370,21 +497,23 @@ class FlightSearchApp:
         self.dest_airport_select.update()
 
     async def _on_search_click(self):
-        '''Handle search with progress UI.'''
+        '''Handle search with progress UI.
+
+        Provider behavior:
+        - Always try Amadeus first.
+        - Fall back to Travelpayouts ONLY when Amadeus returns an actionable request/auth error.
+        - Do not fall back just because Amadeus returns empty results.
+        '''
         if self.is_searching:
             return
-
-        if not API_TOKEN:
-            self._safe_notify(config_help_text(), 'negative')
-            return
-
-        global api_client
-        if api_client is None:
-            api_client = TravelpayoutsClient(APIConfig(token=API_TOKEN))
 
         # Validation
         if self.min_days > self.max_days:
             self._safe_notify('Min days cannot exceed max days', 'warning')
+            return
+
+        # Apply date constraints before search
+        if not self._apply_date_constraints(show_toasts=True):
             return
 
         # Reset cancel flag and update state
@@ -397,13 +526,15 @@ class FlightSearchApp:
         try:
             with self.progress_container:
                 self.progress_container.clear()
-                with ui.column().style('width: 100%; gap: 12px; align-items: center;'):
+                with ui.column().style('width: 100%; gap: 10px; align-items: center;'):
                     ui.html('<div class="progress-bar"><div class="progress-bar-fill"></div></div>', sanitize=False).style('width: 100%;')
+                    provider_label = ui.label('API Provider: Amadeus (primary)').classes('text-muted').style('font-size: 0.9rem;')
                     progress_label = ui.label('Initializing search...').classes('text-muted')
                     self.eta_label = ui.label('').classes('text-muted').style('font-size: 0.9rem;')
         except Exception as e:
             print(f"Error creating progress UI: {e}")
             progress_label = None
+            provider_label = None
 
         try:
             destinations = self._get_destination_list()
@@ -416,7 +547,6 @@ class FlightSearchApp:
                 try:
                     if progress_label:
                         progress_label.set_text(f'{message}')
-                    # Calculate ETA
                     if current > 0:
                         elapsed = (datetime.now() - search_start_time).total_seconds()
                         avg_time_per_item = elapsed / current
@@ -432,19 +562,47 @@ class FlightSearchApp:
                         if self.eta_label:
                             self.eta_label.set_text(f'Searching 0/{total} combinations')
                 except Exception:
-                    pass  # Silently ignore UI update errors in callback
+                    pass
 
-            self.results = await asyncio.to_thread(
-                api_client.search_deals,
-                origin=self.origin_iata,
-                destinations=destinations,
-                start_date=start,
-                end_date=end,
-                min_days=self.min_days,
-                max_days=self.max_days,
-                progress_callback=progress_callback,
-                cancel_flag=self.cancel_flag
-            )
+            # Primary attempt: Amadeus
+            try:
+                client = _get_amadeus_client()
+                self.results = await asyncio.to_thread(
+                    client.search_deals,
+                    origin=self.origin_iata,
+                    destinations=destinations,
+                    start_date=start,
+                    end_date=end,
+                    min_days=self.min_days,
+                    max_days=self.max_days,
+                    progress_callback=progress_callback,
+                    cancel_flag=self.cancel_flag,
+                )
+
+            except AmadeusAPIError as e:
+                if self.cancel_flag['cancelled']:
+                    self.results = []
+                else:
+                    # Fallback to Travelpayouts only on real API errors.
+                    self._safe_notify(f'Amadeus failed ({e}). Falling back to Travelpayouts.', 'warning')
+                    if provider_label:
+                        try:
+                            provider_label.set_text('API Provider: Travelpayouts (fallback)')
+                        except Exception:
+                            pass
+
+                    tp_client = _get_travelpayouts_client()
+                    self.results = await asyncio.to_thread(
+                        tp_client.search_deals,
+                        origin=self.origin_iata,
+                        destinations=destinations,
+                        start_date=start,
+                        end_date=end,
+                        min_days=self.min_days,
+                        max_days=self.max_days,
+                        progress_callback=progress_callback,
+                        cancel_flag=self.cancel_flag,
+                    )
 
             self.current_page = 1
             self.search_performed = True
@@ -453,7 +611,6 @@ class FlightSearchApp:
             # Show results section
             self._safe_style(self.results_section, 'display: flex;')
 
-            # Show appropriate notification
             if self.cancel_flag['cancelled']:
                 if self.results:
                     self._safe_notify(f'Search stopped. Found {len(self.results)} deals so far.', 'warning')
@@ -463,6 +620,7 @@ class FlightSearchApp:
                 self._safe_notify('No deals found. Try different criteria.', 'info')
             else:
                 self._safe_notify(f'Found {len(self.results)} deals!', 'positive')
+
 
         except Exception as e:
             if not self.cancel_flag['cancelled']:
@@ -767,7 +925,6 @@ class FlightSearchApp:
                         ui.html('''
                             <svg class="footer-panel-icon" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/>
-                            </svg>
                         ''', sanitize=False)
                         ui.label('Important Notice').classes('footer-panel-title')
 
@@ -921,8 +1078,8 @@ nicegui_app.add_static_files('/static', str(get_resource_path('static')))
 
 
 if __name__ in {'__main__', '__mp_main__'}:
-    if not API_TOKEN:
-        print('WARNING: TRAVELPAYOUTS_TOKEN not configured')
+    cfg = load_config()
+    if (not cfg.has_amadeus) and (not cfg.has_travelpayouts):
         print(config_help_text())
 
     ui.run(
