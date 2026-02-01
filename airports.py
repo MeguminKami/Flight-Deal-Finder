@@ -63,6 +63,31 @@ class AirportDB:
             # keep first occurrence
             self._by_iata.setdefault(code, a)
 
+    @staticmethod
+    def _country_code_to_flag(country_code: str) -> str:
+        """Convert country code to flag emoji."""
+        if not country_code or len(country_code) != 2:
+            return "🌍"
+        try:
+            code_points = [ord(char) + 127397 for char in country_code.upper()]
+            return chr(code_points[0]) + chr(code_points[1])
+        except:
+            return "🌍"
+
+    @staticmethod
+    def _continent_emoji(continent: str) -> str:
+        """Get emoji for continent."""
+        emoji_map = {
+            'Africa': '🌍',
+            'Asia': '🌏',
+            'Europe': '🌍',
+            'North America': '🌎',
+            'South America': '🌎',
+            'Oceania': '🌏',
+            'Antarctica': '🧊',
+        }
+        return emoji_map.get(continent, '🌐')
+
     def get_airport(self, iata: str) -> Optional[Airport]:
         code = (iata or "").strip().upper()
         rec = self._by_iata.get(code)
@@ -79,22 +104,29 @@ class AirportDB:
         return [(a.display_name, a.iata) for a in airports]
 
     def get_continents_for_dropdown(self) -> List[Tuple[str, str]]:
-        """Return (display_name, continent_code) pairs.
+        """Return (display_name, continent_code) pairs with emoji.
 
         The current UI treats continent_code as the value key and display_name as the label.
         """
 
         continents = sorted({rec.continent for rec in self._by_iata.values() if rec.continent})
-        return [(c, c) for c in continents]
+        return [(f"{self._continent_emoji(c)} {c}", c) for c in continents]
 
     def get_countries_for_dropdown(self) -> List[Tuple[str, str]]:
-        """Return (display_name, country_name) pairs.
+        """Return (display_name, country_name) pairs with flag emojis.
 
         The current UI expects a list where item[0] is the label and item[1] is the value.
         """
+        # Get unique countries with their country codes
+        countries_data = {}
+        for rec in self._by_iata.values():
+            if rec.country and rec.country not in countries_data:
+                countries_data[rec.country] = rec.country_code
 
-        countries = sorted({rec.country for rec in self._by_iata.values() if rec.country})
-        return [(c, c) for c in countries]
+        # Sort by country name and format with flag emoji
+        sorted_countries = sorted(countries_data.items())
+        return [(f"{self._country_code_to_flag(code)} {country}", country)
+                for country, code in sorted_countries]
 
     def get_airports_by_continent(self, continent: str) -> List[Airport]:
         continent = (continent or "").strip()

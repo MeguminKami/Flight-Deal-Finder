@@ -98,13 +98,32 @@ class TravelpayoutsClient:
                 if result and 'data' in result:
                     for item in result['data']:
                         deal = self._parse_deal(item, origin_airport, dest_airport)
-                        if deal and min_days <= deal.trip_duration <= max_days:
-                            try:
-                                depart_dt = datetime.fromisoformat(deal.depart_date[:10])
-                                if start_date <= depart_dt <= end_date:
-                                    deals.append(deal)
-                            except Exception:
-                                pass
+                        if not deal:
+                            continue
+
+                        # Strict date and duration filtering
+                        # APIs may return results outside of requested ranges, so we must manually filter
+                        try:
+                            depart_dt = datetime.fromisoformat(deal.depart_date[:10])
+                            return_dt = datetime.fromisoformat(deal.return_date[:10])
+                        except Exception:
+                            # Invalid date format, skip this deal
+                            continue
+
+                        # Filter 1: Departure date must be within the specified date range
+                        if not (start_date <= depart_dt <= end_date):
+                            continue
+
+                        # Filter 2: Trip duration must be within min_days and max_days
+                        trip_days = (return_dt - depart_dt).days
+                        if not (min_days <= trip_days <= max_days):
+                            continue
+
+                        # Filter 3: Return date should not be before departure date
+                        if return_dt < depart_dt:
+                            continue
+
+                        deals.append(deal)
 
         deals = self._deduplicate_deals(deals)
         deals = sorted(deals, key=lambda d: (d.price_eur, d.transfers if d.transfers is not None else 999, d.depart_date))

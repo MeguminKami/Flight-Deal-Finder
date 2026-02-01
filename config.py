@@ -109,19 +109,20 @@ def _is_placeholder(value: str) -> bool:
     v = (value or '').strip()
     if not v:
         return True
-    return v in {'t4SnzyPa2v9HpgkeD5TlsxxrsmMhzfau', '5xWonPlVOkkFZJDZ', 'x', 'y'}
+    # Only reject obvious placeholders, not values that could be real credentials
+    return v.lower() in {'x', 'y', 'your_client_id', 'your_client_secret', 'your_token',
+                         'youramadeusclientidhere', 'youramadeusclientsecrethere',
+                         'yourtravelpayoutstokenhere', 'placeholder', 'example', 'test'}
 
 
 def load_dotenv_once() -> Optional[Path]:
     """Load config.env if present.
 
-    Default behavior is env vars windows. But if env vars are missing or placeholders,
-    we allow config.env to replace them (common in packaged apps).
+    The config.env file should always take precedence when:
+    - Amadeus credentials are not set in environment variables
+    - Amadeus credentials in environment are placeholder values
 
-    Important:
-    - If BOTH providers are present in the environment, we do NOT override.
-    - If Amadeus vars are placeholders (common in packaged templates), we DO override so
-      real values in config.env can take effect.
+    This ensures that the config.env file is the primary source of configuration.
     """
     env_path = dotenv_path()
     try:
@@ -130,24 +131,21 @@ def load_dotenv_once() -> Optional[Path]:
 
         current_id = (os.getenv('AMADEUS_CLIENT_ID') or '').strip()
         current_secret = (os.getenv('AMADEUS_CLIENT_SECRET') or '').strip()
-        current_tp = (os.getenv('TRAVELPAYOUTS_TOKEN') or '').strip()
 
-        # If Amadeus creds are placeholders, we want config.env to override them.
+        # Check if Amadeus credentials are missing or placeholders
         amadeus_is_placeholder = _is_placeholder(current_id) or _is_placeholder(current_secret)
-
-        # If Amadeus creds are missing, but TP is present, config.env may still contain Amadeus.
         amadeus_missing = (not current_id) or (not current_secret)
 
-        # Only override when needed to activate real config.env values.
+        # Always override when credentials are missing or placeholders
+        # This ensures config.env is properly loaded
         should_override = amadeus_is_placeholder or amadeus_missing
 
-        # If the user explicitly set real env vars for both providers, respect them.
-        if (not amadeus_is_placeholder) and current_id and current_secret and current_tp:
-            should_override = False
-
-        load_dotenv(dotenv_path=str(env_path), override=bool(should_override))
+        # Load config.env with override when needed
+        load_dotenv(dotenv_path=str(env_path), override=should_override)
         return env_path
-    except Exception:
+    except Exception as e:
+        # Log the error for debugging
+        print(f"Warning: Failed to load config.env: {e}")
         return None
 
 
@@ -213,8 +211,10 @@ def load_config() -> LoadedConfig:
 
     # Treat placeholder values as "not configured".
     if _is_placeholder(aid):
+        print(f"WARNING: AMADEUS_CLIENT_ID contains a placeholder value. Please set your real Amadeus credentials in config.env")
         aid = ''
     if _is_placeholder(asec):
+        print(f"WARNING: AMADEUS_CLIENT_SECRET contains a placeholder value. Please set your real Amadeus credentials in config.env")
         asec = ''
 
     return LoadedConfig(

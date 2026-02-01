@@ -40,6 +40,17 @@ jobs:
         shell: powershell
         run: .\scripts\ci_build_windows.ps1 -Tag "${{ github.ref_name }}"
 
+      - name: Verify Windows build
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          $installer = Get-ChildItem -Path "installers/windows" -Filter "FlightDealFinder-win-x64-*.exe" | Select-Object -First 1
+          if (-not $installer) {
+            Write-Error "Windows installer not found!"
+            exit 1
+          }
+          Write-Host "Found installer: $($installer.Name) (Size: $([math]::Round($installer.Length/1MB, 2)) MB)"
+
       - name: Build macOS app zip
         if: runner.os == 'macOS'
         shell: bash
@@ -47,14 +58,33 @@ jobs:
           chmod +x ./scripts/ci_build_macos.sh
           ./scripts/ci_build_macos.sh "${{ github.ref_name }}"
 
-      - name: Upload build outputs
+      - name: Verify macOS build
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          zip_file=$(find installers/mac/output -name "FlightDealFinder-mac-arm64-*.zip" | head -n 1)
+          if [ -z "$zip_file" ]; then
+            echo "macOS app bundle not found!"
+            exit 1
+          fi
+          size_mb=$(du -m "$zip_file" | cut -f1)
+          echo "Found app bundle: $(basename "$zip_file") (Size: ${size_mb} MB)"
+
+      - name: Upload Windows artifact
+        if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.artifact_name }}
+          name: windows-installer
           if-no-files-found: error
-          path: |
-            installers/windows/*.exe
-            installers/mac/output/*.zip
+          path: installers/windows/FlightDealFinder-win-x64-*.exe
+
+      - name: Upload macOS artifact
+        if: runner.os == 'macOS'
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-app
+          if-no-files-found: error
+          path: installers/mac/output/FlightDealFinder-mac-arm64-*.zip
 
   release:
     name: Publish GitHub Release
@@ -62,18 +92,69 @@ jobs:
     needs: build
 
     steps:
-      - name: Download build artifacts
+      - name: Download Windows artifact
         uses: actions/download-artifact@v4
         with:
-          path: dist
+          name: windows-installer
+          path: release-files
+
+      - name: Download macOS artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-app
+          path: release-files
+
+      - name: List release files
+        run: |
+          echo "Files to be released:"
+          ls -lh release-files/
+          echo ""
+          echo "File count: $(ls -1 release-files/ | wc -l)"
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          cat << 'EOF' > release_notes.md
+          ## FlightDealFinder ${{ github.ref_name }}
+          
+          ### Downloads
+          
+          **Windows (x64)**
+          - `FlightDealFinder-win-x64-${{ github.ref_name }}.exe` - Windows installer for 64-bit systems
+          - Run the installer and follow the setup wizard
+          - Windows 10 or later required
+          
+          **macOS (Apple Silicon)**
+          - `FlightDealFinder-mac-arm64-${{ github.ref_name }}.zip` - macOS application for Apple Silicon Macs (M1/M2/M3)
+          - Unzip and drag to Applications folder
+          - macOS 11 (Big Sur) or later required
+          - On first launch, right-click the app and select "Open" if you get a security warning
+          
+          ### What's New
+          
+          See the commit history for detailed changes in this release.
+          
+          ### System Requirements
+          
+          - **Windows**: Windows 10 or later, 64-bit
+          - **macOS**: macOS 11 (Big Sur) or later, Apple Silicon (M1/M2/M3)
+          
+          ### Support
+          
+          If you encounter any issues, please open an issue on the GitHub repository.
+          EOF
+          
+          echo "Release notes generated"
 
       - name: Create/Update GitHub Release and upload assets
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: FlightDealFinder ${{ github.ref_name }}
-          files: |
-            dist/**
+          body_path: release_notes.md
+          draft: false
+          prerelease: false
+          files: release-files/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

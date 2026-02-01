@@ -56,7 +56,9 @@ _travelpayouts_client: TravelpayoutsClient | None = None
 def _get_amadeus_client() -> AmadeusClient:
     global _amadeus_client
     if _amadeus_client is None:
+        print(f"[APP DEBUG] Initializing Amadeus client for the first time...")
         _amadeus_client = AmadeusClient()
+        print(f"[APP DEBUG] Amadeus client initialized successfully")
     return _amadeus_client
 
 
@@ -115,23 +117,51 @@ class FlightSearchApp:
         # Add JavaScript for theme persistence
         ui.add_head_html('''
         <script>
-        // Load theme preference
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        if (savedTheme === 'light') {
-            document.body.classList.add('light');
-        }
-
-        window.toggleTheme = function() {
-            document.body.classList.toggle('light');
-            const isDark = !document.body.classList.contains('light');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            return isDark;
-        }
+        // Wait for DOM to be ready before accessing document.body
+        (function() {
+            // Define functions immediately so they're available
+            window.toggleTheme = function() {
+                if (!document.body) return;
+                document.body.classList.toggle('light');
+                const isDark = !document.body.classList.contains('light');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
+                return isDark;
+            }
+            
+            window.getCurrentTheme = function() {
+                if (!document.body) return 'dark';
+                const theme = document.body.classList.contains('light') ? 'light' : 'dark';
+                document.body.setAttribute('data-theme', theme);
+                return theme;
+            }
+            
+            // Apply saved theme when DOM is ready
+            function applyTheme() {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                if (savedTheme === 'light' && document.body) {
+                    document.body.classList.add('light');
+                }
+                // Initialize theme attribute
+                window.getCurrentTheme();
+            }
+            
+            // Apply theme as soon as possible
+            if (document.body) {
+                applyTheme();
+            } else if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', applyTheme);
+            } else {
+                applyTheme();
+            }
+        })();
         </script>
         ''')
 
         with ui.column().style('width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 1;'):
             self._create_header()
+            # Sync theme icon with saved theme preference
+            ui.timer(0.1, self._sync_theme_icon, once=True)
             ui.space()
             self._create_search_form()
             ui.space()
@@ -160,7 +190,7 @@ class FlightSearchApp:
                 cache_btn.on('click', self._show_cache_info_dialog)
                 cache_btn.classes('theme-toggle')
 
-                self.theme_toggle_icon = ui.icon('dark_mode', size='1.5rem').style('color: var(--text);')
+                self.theme_toggle_icon = ui.icon('light_mode', size='1.5rem').style('color: var(--text);')
                 self.theme_toggle_icon.on('click', self._toggle_theme)
                 self.theme_toggle_icon.classes('theme-toggle')
 
@@ -208,13 +238,49 @@ class FlightSearchApp:
 
     def _toggle_theme(self):
         '''Toggle between light and dark theme.'''
+        # Toggle theme in the UI first - this toggles from current state to opposite
         ui.run_javascript('window.toggleTheme()')
-        # Update icon
+
+        # Now update Python state to match what we just toggled TO
+        # If we were in dark mode (theme_dark=True), we just toggled TO light mode
+        # So we need to set theme_dark=False
+        self.theme_dark = not self.theme_dark
+
+        # Update icon to show what mode you can switch TO next time
+        # When in dark mode, show light_mode icon (clicking will go to light)
+        # When in light mode, show dark_mode icon (clicking will go to dark)
         if self.theme_dark:
             self.theme_toggle_icon.props('name=light_mode')
         else:
             self.theme_toggle_icon.props('name=dark_mode')
-        self.theme_dark = not self.theme_dark
+
+    def _sync_theme_icon(self):
+        '''Sync theme icon with current theme state on page load.'''
+        # Call JavaScript to update the data attribute, then read it
+        ui.run_javascript('window.getCurrentTheme()')
+
+        # Use a short delay to let JS execute, then update icon
+        async def update_icon():
+            try:
+                result = await ui.run_javascript('document.body.getAttribute("data-theme")', timeout=0.5)
+                is_light = (result == 'light')
+
+                # Update state based on saved theme
+                self.theme_dark = not is_light
+
+                # Update icon: show what mode you can switch TO
+                if self.theme_dark:
+                    self.theme_toggle_icon.props('name=light_mode')
+                else:
+                    self.theme_toggle_icon.props('name=dark_mode')
+            except Exception as e:
+                # Fallback to default dark mode
+                print(f"Theme sync error: {e}")
+                self.theme_dark = True
+                self.theme_toggle_icon.props('name=light_mode')
+
+        # Schedule the async update
+        ui.timer(0.05, update_icon, once=True)
 
     def _notify_caution(self, message: str) -> None:
         """Non-blocking caution toast (mustard/yellow)."""
@@ -327,7 +393,7 @@ class FlightSearchApp:
                     ui.label('🛫 Origin Airport').classes('text-muted').style('font-weight: 500; margin-bottom: 8px; font-size: 0.9rem;')
                     airports = airport_db.get_airports_for_dropdown()
                     self.origin_select = ui.select(
-                        options={iata: self._format_airport_display(iata) for name, iata in airports},
+                        options={iata: display_name for display_name, iata in airports},
                         value=self.origin_iata,
                         on_change=lambda e: setattr(self, 'origin_iata', e.value),
                         with_input=True
@@ -338,7 +404,7 @@ class FlightSearchApp:
                     ui.label('🌍 Part of the World').classes('text-muted').style('font-weight: 500; margin-bottom: 8px; font-size: 0.9rem;')
                     continents = airport_db.get_continents_for_dropdown()
                     dest_options = {'all': '🌎 Entire World', 'specific': '🎯 Specific Airport', 'country': '🏳️ Search by Country'}
-                    dest_options.update({cont: f"🌐 {name}" for name, cont in continents})
+                    dest_options.update({cont: name for name, cont in continents})  # name already includes emoji
                     self.dest_continent_select = ui.select(
                         options=dest_options,
                         value='specific',
@@ -349,7 +415,7 @@ class FlightSearchApp:
                 with ui.column().style('flex: 1; min-width: 250px;'):
                     self.dest_airport_label = ui.label('🛬 Destination Airport').classes('text-muted').style('font-weight: 500; margin-bottom: 8px; font-size: 0.9rem;')
                     self.dest_airport_select = ui.select(
-                        options={iata: self._format_airport_display(iata) for name, iata in airports},
+                        options={iata: display_name for display_name, iata in airports},
                         value=self.dest_value,
                         on_change=self._on_dest_airport_change,
                         with_input=True
@@ -362,8 +428,6 @@ class FlightSearchApp:
                     default_start = (datetime.now() + timedelta(days=30)).strftime('%Y-%m-%d')
                     self.start_date_input = ui.input(value=default_start).classes('theme-input date-input').props('type=date').style('width: 100%;')
                     self.start_date = default_start
-                    # Clicking the field should open the picker (not only the calendar icon)
-                    self.start_date_input.on('focus', lambda e: e.sender.show_picker())
                     self.start_date_input.on('change', self._on_start_date_changed)
 
                 with ui.column().style('flex: 1; min-width: 200px;'):
@@ -371,7 +435,6 @@ class FlightSearchApp:
                     default_end = (datetime.now() + timedelta(days=60)).strftime('%Y-%m-%d')
                     self.end_date_input = ui.input(value=default_end).classes('theme-input date-input').props('type=date').style('width: 100%;')
                     self.end_date = default_end
-                    self.end_date_input.on('focus', lambda e: e.sender.show_picker())
                     self.end_date_input.on('change', self._on_end_date_changed)
 
                 with ui.column().style('flex: 0.5; min-width: 120px;'):
@@ -448,7 +511,7 @@ class FlightSearchApp:
             self.dest_mode = 'specific'
             # Show all airports
             airports = airport_db.get_airports_for_dropdown()
-            self.dest_airport_select.options = {iata: self._format_airport_display(iata) for name, iata in airports}
+            self.dest_airport_select.options = {iata: display_name for display_name, iata in airports}
             self.dest_airport_label.set_text('🛬 Destination Airport')
             self.dest_airport_select.style('display: block;')
         elif value == 'all':
@@ -456,7 +519,7 @@ class FlightSearchApp:
             # Add "All World" as first option, then all airports
             airports = airport_db.get_airports_for_dropdown()
             options = {'__ALL_WORLD__': '🌎 All Destinations (Entire World)'}
-            options.update({iata: self._format_airport_display(iata) for name, iata in airports})
+            options.update({iata: display_name for display_name, iata in airports})
             self.dest_airport_select.options = options
             self.dest_airport_select.value = '__ALL_WORLD__'
             self.dest_value = '__ALL_WORLD__'
@@ -478,15 +541,15 @@ class FlightSearchApp:
         else:
             # It's a continent - filter airports by continent
             self.dest_mode = 'continent'
-            # Get continent display name
+            # Get continent display name (already includes emoji)
             continents = airport_db.get_continents_for_dropdown()
             continent_name = next((name for name, cont in continents if cont == value), value)
             # Get airports for this continent
             continent_airports = airport_db.get_airports_by_continent(value)
             if continent_airports:
-                # Add "All [Continent]" as first option
-                options = {f'__ALL_{value}__': f'🌐 All Destinations ({continent_name})'}
-                options.update({a.iata: self._format_airport_display(a.iata) for a in continent_airports})
+                # Add "All [Continent]" as first option - continent_name already has emoji
+                options = {f'__ALL_{value}__': f'✈️ All Destinations ({continent_name})'}
+                options.update({a.iata: a.display_name for a in continent_airports})
                 self.dest_airport_select.options = options
                 # Set the "All" option as default
                 self.dest_airport_select.value = f'__ALL_{value}__'
@@ -566,7 +629,16 @@ class FlightSearchApp:
 
             # Primary attempt: Amadeus
             try:
+                print(f"\n[APP DEBUG] ===== STARTING AMADEUS SEARCH =====")
+                print(f"[APP DEBUG] Origin: {self.origin_iata}")
+                print(f"[APP DEBUG] Destinations count: {len(destinations)}")
+                print(f"[APP DEBUG] Date range: {start} to {end}")
+                print(f"[APP DEBUG] Trip duration: {self.min_days}-{self.max_days} days")
+
                 client = _get_amadeus_client()
+                print(f"[APP DEBUG] Amadeus client created successfully")
+                print(f"[APP DEBUG] Calling search_deals...")
+
                 self.results = await asyncio.to_thread(
                     client.search_deals,
                     origin=self.origin_iata,
@@ -579,11 +651,22 @@ class FlightSearchApp:
                     cancel_flag=self.cancel_flag,
                 )
 
+                print(f"[APP DEBUG] ===== AMADEUS SEARCH COMPLETED =====")
+                print(f"[APP DEBUG] Results count: {len(self.results)}")
+
             except AmadeusAPIError as e:
+                print(f"\n[APP DEBUG] ===== AMADEUS API ERROR =====")
+                print(f"[APP DEBUG] Error type: {type(e).__name__}")
+                print(f"[APP DEBUG] Error message: {e}")
+                print(f"[APP DEBUG] Error status code: {getattr(e, 'status_code', 'N/A')}")
+                print(f"[APP DEBUG] Cancelled flag: {self.cancel_flag['cancelled']}")
+
                 if self.cancel_flag['cancelled']:
+                    print(f"[APP DEBUG] Search was cancelled, not falling back")
                     self.results = []
                 else:
                     # Fallback to Travelpayouts only on real API errors.
+                    print(f"[APP DEBUG] Falling back to Travelpayouts...")
                     self._safe_notify(f'Amadeus failed ({e}). Falling back to Travelpayouts.', 'warning')
                     if provider_label:
                         try:
@@ -957,7 +1040,7 @@ class FlightSearchApp:
                                 <span class="footer-pill-label">Travelpayouts</span>
                             ''', sanitize=False)
 
-                        with ui.link(target='https://developers.amadeus.com/', new_tab=True).classes('footer-pill'):
+                        with ui.link(target='https://test.api.amadeus.com', new_tab=True).classes('footer-pill'):
                             ui.html('''
                                 <svg class="footer-pill-icon" viewBox="0 0 24 24" width="16" height="16">
                                     <circle cx="12" cy="12" r="10" fill="#1B69B6"/>
@@ -1078,9 +1161,34 @@ nicegui_app.add_static_files('/static', str(get_resource_path('static')))
 
 
 if __name__ in {'__main__', '__mp_main__'}:
+    print("\n" + "="*70)
+    print("FLIGHT DEAL FINDER - STARTUP DIAGNOSTICS")
+    print("="*70)
+
     cfg = load_config()
+    print(f"\n[CONFIG] Configuration loaded from: {cfg.loaded_from}")
+    print(f"[CONFIG] Has Amadeus: {cfg.has_amadeus}")
+    print(f"[CONFIG] Has Travelpayouts: {cfg.has_travelpayouts}")
+    print(f"[CONFIG] Provider preference: {cfg.provider_preference}")
+
+    if cfg.has_amadeus:
+        print(f"[CONFIG] Amadeus Client ID: {cfg.amadeus_client_id[:10]}...{cfg.amadeus_client_id[-5:]}")
+        print(f"[CONFIG] Amadeus Client Secret: {cfg.amadeus_client_secret[:10]}...{cfg.amadeus_client_secret[-5:]}")
+    else:
+        print(f"[CONFIG] Amadeus credentials: NOT CONFIGURED")
+
+    if cfg.has_travelpayouts:
+        print(f"[CONFIG] Travelpayouts Token: {cfg.travelpayouts_token[:10]}...{cfg.travelpayouts_token[-5:]}")
+    else:
+        print(f"[CONFIG] Travelpayouts token: NOT CONFIGURED")
+
     if (not cfg.has_amadeus) and (not cfg.has_travelpayouts):
+        print("\n[WARNING] No API credentials configured!")
         print(config_help_text())
+
+    print("\n" + "="*70)
+    print("Starting web server on http://localhost:8080")
+    print("="*70 + "\n")
 
     ui.run(
         title='Flight Deal Finder',

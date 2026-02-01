@@ -52,7 +52,7 @@ class APIError(RuntimeError):
 
 @dataclass
 class AmadeusConfig:
-    base_url: str = "https://test.api.amadeus.com"
+    base_url: str = "https://test.api.amadeus.com"  # Default to test API
     timeout: float = 15.0
     max_retries: int = 3
     backoff_factor: float = 0.8
@@ -60,6 +60,14 @@ class AmadeusConfig:
     verify_ssl: bool = True
     # light pacing to reduce 429s
     min_delay_seconds: float = 0.15
+
+    @staticmethod
+    def from_env() -> 'AmadeusConfig':
+        """Create config from environment variables."""
+        import os
+        env = os.getenv('AMADEUS_API_ENV', 'test').lower()
+        base_url = "https://api.amadeus.com" if env == 'production' else "https://test.api.amadeus.com"
+        return AmadeusConfig(base_url=base_url)
 
 
 class AmadeusClient:
@@ -76,7 +84,7 @@ class AmadeusClient:
     """
 
     def __init__(self, config: Optional[AmadeusConfig] = None):
-        self.config = config or AmadeusConfig()
+        self.config = config or AmadeusConfig.from_env()
         self.cache = get_cache()
         self.airport_db = get_airport_db()
 
@@ -110,13 +118,32 @@ class AmadeusClient:
         progress_callback=None,
         cancel_flag: Optional[dict] = None,
     ) -> List[FlightDeal]:
+        print(f"\n[AMADEUS DEBUG] ===== SEARCH DEALS CALLED =====")
+        print(f"[AMADEUS DEBUG] Origin: {origin}")
+        print(f"[AMADEUS DEBUG] Destinations: {len(destinations)} airports")
+        print(f"[AMADEUS DEBUG] Date range: {start_date.date()} to {end_date.date()}")
+        print(f"[AMADEUS DEBUG] Duration: {min_days}-{max_days} days")
+        print(f"[AMADEUS DEBUG] Using API: {self.config.base_url}")
+
+        # Validate date range for test API
+        if "test.api.amadeus.com" in self.config.base_url:
+            days_until_departure = (start_date - datetime.now()).days
+            if days_until_departure > 365:
+                print(f"[AMADEUS DEBUG] WARNING: Test API may not support dates more than 365 days in future")
+                print(f"[AMADEUS DEBUG] WARNING: Current search is {days_until_departure} days ahead")
+                print(f"[AMADEUS DEBUG] WARNING: Consider using dates within next 12 months for test API")
+
         origin = self._normalize_iata(origin)
         if not origin:
+            print(f"[AMADEUS DEBUG] ERROR: Invalid origin IATA")
             return []
 
         origin_airport = self.airport_db.get_airport(origin)
         if not origin_airport:
+            print(f"[AMADEUS DEBUG] ERROR: Origin airport not found in database")
             return []
+
+        print(f"[AMADEUS DEBUG] Origin airport: {origin_airport.city} ({origin})")
 
         # Keep it efficient: query by destination and month-sized date ranges (not per-day).
         periods = self._generate_periods(start_date, end_date)
@@ -164,22 +191,29 @@ class AmadeusClient:
                     if not deal:
                         continue
 
-                    # date filtering
+                    # Strict date and duration filtering
+                    # APIs may return results outside of requested ranges, so we must manually filter
                     try:
                         depart_dt = datetime.fromisoformat(deal.depart_date[:10])
                         return_dt = datetime.fromisoformat(deal.return_date[:10])
                     except Exception:
+                        # Invalid date format, skip this deal
                         continue
 
+                    # Filter 1: Departure date must be within the specified date range
                     if not (start_date <= depart_dt <= end_date):
                         continue
 
+                    # Filter 2: Trip duration must be within min_days and max_days
                     trip_days = (return_dt - depart_dt).days
                     if not (min_days <= trip_days <= max_days):
                         continue
 
-                    # Fill computed duration if model doesn't compute it
-                    # (models.FlightDeal defines trip_duration property currently)
+                    # Filter 3: Return date should not be unreasonably far in the future
+                    # (though this is implicitly covered by the duration check)
+                    if return_dt < depart_dt:
+                        continue
+
                     deals.append(deal)
 
         deals = self._deduplicate(deals)
@@ -200,14 +234,23 @@ class AmadeusClient:
 
     def _get_access_token(self) -> str:
         cfg = load_config()
+        print(f"[AMADEUS DEBUG] Loading config...")
+        print(f"[AMADEUS DEBUG] Has Amadeus credentials: {cfg.has_amadeus}")
+        print(f"[AMADEUS DEBUG] Client ID (masked): {cfg.amadeus_client_id[:8]}...{cfg.amadeus_client_id[-4:] if cfg.amadeus_client_id else 'EMPTY'}")
+
         if not cfg.has_amadeus:
+            print(f"[AMADEUS DEBUG] ERROR: Credentials missing!")
             raise APIError("Amadeus credentials missing (AMADEUS_CLIENT_ID/AMADEUS_CLIENT_SECRET)")
 
         with self._token_lock:
             if self._access_token and time.time() < (self._token_expires_at - 30):
+                print(f"[AMADEUS DEBUG] Using cached token (expires in {int(self._token_expires_at - time.time())}s)")
                 return self._access_token
 
             url = f"{self.config.base_url}/v1/security/oauth2/token"
+            print(f"[AMADEUS DEBUG] Requesting token from: {url}")
+            print(f"[AMADEUS DEBUG] Using Client ID: {cfg.amadeus_client_id[:8]}...")
+
             data = {
                 "grant_type": "client_credentials",
                 "client_id": cfg.amadeus_client_id,
@@ -216,32 +259,48 @@ class AmadeusClient:
 
             self._rate_limit()
             try:
+                print(f"[AMADEUS DEBUG] Sending POST request...")
                 resp = self._session.post(url, data=data, timeout=self.config.timeout, verify=self.config.verify_ssl)
+                print(f"[AMADEUS DEBUG] Response status code: {resp.status_code}")
+                print(f"[AMADEUS DEBUG] Response headers: {dict(resp.headers)}")
+                print(f"[AMADEUS DEBUG] Response body (first 500 chars): {resp.text[:500]}")
             except requests.exceptions.RequestException as e:
+                print(f"[AMADEUS DEBUG] ERROR: Request exception: {type(e).__name__}: {e}")
                 raise APIError(f"Amadeus token request failed: {e}")
 
             if resp.status_code != 200:
+                print(f"[AMADEUS DEBUG] ERROR: Non-200 status code!")
                 raise APIError(
                     f"Amadeus token request failed (HTTP {resp.status_code}): {_safe_resp_text(resp.text)}",
                     status_code=resp.status_code,
                 )
 
             payload = resp.json() if resp.text else {}
+            print(f"[AMADEUS DEBUG] Token response payload keys: {payload.keys() if payload else 'empty'}")
             token = payload.get("access_token")
             expires_in = int(payload.get("expires_in") or 0)
+            print(f"[AMADEUS DEBUG] Token extracted: {'YES' if token else 'NO'}, expires_in: {expires_in}")
+
             if not token or expires_in <= 0:
+                print(f"[AMADEUS DEBUG] ERROR: Invalid token response!")
                 raise APIError("Amadeus token response missing access_token")
 
             self._access_token = token
             self._token_expires_at = time.time() + expires_in
-            return token
+            print(f"[AMADEUS DEBUG] Token successfully cached! Expires at: {time.ctime(self._token_expires_at)}")
+            return self._access_token
 
-    def _request_json(self, method: str, path: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    def _request_json(self, method: str, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        print(f"[AMADEUS DEBUG] Making {method} request to {endpoint}")
+        print(f"[AMADEUS DEBUG] Params: {params}")
         token = self._get_access_token()
-        url = f"{self.config.base_url}{path}"
+        url = f"{self.config.base_url}{endpoint}"
         headers = {"Authorization": f"Bearer {token}"}
+        print(f"[AMADEUS DEBUG] Full URL: {url}")
+        print(f"[AMADEUS DEBUG] Using bearer token: {token[:20]}...")
 
         for attempt in range(self.config.max_retries):
+            print(f"[AMADEUS DEBUG] Attempt {attempt + 1}/{self.config.max_retries}")
             self._rate_limit()
             try:
                 resp = self._session.request(
@@ -252,31 +311,48 @@ class AmadeusClient:
                     timeout=self.config.timeout,
                     verify=self.config.verify_ssl,
                 )
+                print(f"[AMADEUS DEBUG] Response status: {resp.status_code}")
+                print(f"[AMADEUS DEBUG] Response body (first 500 chars): {resp.text[:500]}")
             except requests.exceptions.RequestException as e:
                 # network issue → actionable
+                print(f"[AMADEUS DEBUG] ERROR: Request exception: {type(e).__name__}: {e}")
                 raise APIError(f"Amadeus request failed: {e}")
 
             if resp.status_code == 200:
                 try:
-                    return resp.json()
+                    result = resp.json()
+                    print(f"[AMADEUS DEBUG] SUCCESS: Got valid JSON response")
+                    return result
                 except Exception:
                     return {}
 
             # actionable failures (should trigger fallback)
             if resp.status_code in (400, 401, 403, 429):
+                error_msg = self._parse_error_message(resp)
+                print(f"[AMADEUS DEBUG] ERROR: Actionable failure - HTTP {resp.status_code}: {error_msg}")
                 raise APIError(
-                    f"Amadeus rejected the request (HTTP {resp.status_code}): {_safe_resp_text(resp.text)}",
+                    f"Amadeus rejected the request (HTTP {resp.status_code}): {error_msg}",
                     status_code=resp.status_code,
                 )
 
             # 5xx: retry then eventually raise
             if resp.status_code >= 500:
-                time.sleep(self.config.backoff_factor ** attempt)
-                continue
+                error_msg = self._parse_error_message(resp)
+                print(f"[AMADEUS DEBUG] WARNING: Server error HTTP {resp.status_code}: {error_msg}")
+                if attempt < self.config.max_retries - 1:
+                    print(f"[AMADEUS DEBUG] Retrying in {self.config.backoff_factor ** attempt:.2f}s...")
+                    time.sleep(self.config.backoff_factor ** attempt)
+                    continue
+                else:
+                    # Last attempt failed - provide detailed error
+                    print(f"[AMADEUS DEBUG] All retries exhausted with error: {error_msg}")
+                    raise APIError(f"Amadeus server error: {error_msg}", status_code=resp.status_code)
 
             # other codes treat as empty
+            print(f"[AMADEUS DEBUG] WARNING: Unexpected status {resp.status_code}, returning empty dict")
             return {}
 
+        print(f"[AMADEUS DEBUG] ERROR: All retry attempts exhausted!")
         raise APIError("Amadeus is temporarily unavailable. Please try again later.")
 
     # ------------------------------
@@ -295,21 +371,52 @@ class AmadeusClient:
     ) -> Dict[str, Any]:
         # cache key matches our cache API (endpoint + params)
         endpoint = "/v1/shopping/flight-dates"
+
+        # Extract single date from period for better compatibility with test API
+        # Test API often fails with date ranges, so use single date
+        start_date_str = period.split(',')[0] if ',' in period else period
+
         params: Dict[str, Any] = {
             "origin": origin,
             "destination": destination,
-            "departureDate": period,  # "YYYY-MM-DD" or "YYYY-MM-DD,YYYY-MM-DD"
+            "departureDate": start_date_str,  # Use single date for test API compatibility
             "oneWay": "false",
             "currency": currency,
         }
-        if min_days is not None and max_days is not None:
-            params["duration"] = f"{min_days},{max_days}"
 
+        # Try without duration first for better test API compatibility
+        # Duration parameter can cause 500 errors on test API for some routes
         cached = self.cache.get(endpoint, params)
         if cached is not None:
             return cached
 
+        # First attempt: without duration parameter (more compatible)
         data = self._request_json("GET", endpoint, params=params)
+
+        # If we got data, cache and return it
+        if data and data.get("data"):
+            self.cache.set(endpoint, params, data)
+            return data
+
+        # If no data and we have duration constraints, try with duration parameter
+        if min_days is not None and max_days is not None:
+            params_with_duration = params.copy()
+            params_with_duration["duration"] = f"{min_days},{max_days}"
+
+            cached_with_duration = self.cache.get(endpoint, params_with_duration)
+            if cached_with_duration is not None:
+                return cached_with_duration
+
+            try:
+                data_with_duration = self._request_json("GET", endpoint, params=params_with_duration)
+                if data_with_duration:
+                    self.cache.set(endpoint, params_with_duration, data_with_duration)
+                    return data_with_duration
+            except APIError:
+                # If duration parameter causes error, fall back to data without it
+                pass
+
+        # Cache the result (even if empty) to avoid repeated failed requests
         self.cache.set(endpoint, params, data)
         return data
 
@@ -363,6 +470,31 @@ class AmadeusClient:
     # Helpers
     # ------------------------------
 
+    def _parse_error_message(self, resp: requests.Response) -> str:
+        """Parse Amadeus error response to extract meaningful error message."""
+        try:
+            error_data = resp.json()
+            if isinstance(error_data, dict) and "errors" in error_data:
+                errors = error_data["errors"]
+                if isinstance(errors, list) and len(errors) > 0:
+                    first_error = errors[0]
+                    if isinstance(first_error, dict):
+                        title = first_error.get("title", "")
+                        detail = first_error.get("detail", "")
+                        code = first_error.get("code", "")
+                        msg_parts = []
+                        if code:
+                            msg_parts.append(f"Code {code}")
+                        if title:
+                            msg_parts.append(title)
+                        if detail:
+                            msg_parts.append(detail)
+                        if msg_parts:
+                            return " - ".join(msg_parts)
+            return _safe_resp_text(resp.text)
+        except Exception:
+            return _safe_resp_text(resp.text)
+
     def _normalize_iata(self, code: str) -> str:
         code = (code or "").strip().upper()
         if len(code) == 3 and code.isalpha():
@@ -372,10 +504,10 @@ class AmadeusClient:
         return a.iata if a else ""
 
     def _generate_periods(self, start_date: datetime, end_date: datetime) -> List[str]:
-        """Generate month-sized departureDate ranges for Amadeus flight-dates.
+        """Generate 2-week departureDate intervals for Amadeus flight-dates.
 
-        Each element is formatted as "YYYY-MM-DD,YYYY-MM-DD" (inclusive bounds)
-        and clamped to the provided start/end window.
+        Returns single dates representing the start of each 2-week period.
+        This provides good coverage while minimizing API calls for test environment.
         """
 
         if end_date < start_date:
@@ -383,28 +515,14 @@ class AmadeusClient:
 
         periods: List[str] = []
 
-        # iterate month-by-month
-        cur = start_date.replace(day=1)
-        end_month = end_date.replace(day=1)
+        # Use 14-day intervals for good coverage with fewer API calls
+        cur = start_date
 
-        while cur <= end_month:
-            next_month = cur.replace(day=28)  # safe base
-            # move to first of next month
-            if cur.month == 12:
-                next_month = next_month.replace(year=cur.year + 1, month=1)
-            else:
-                next_month = next_month.replace(month=cur.month + 1)
-            next_month = next_month.replace(day=1)
-
-            month_start = cur
-            month_end = next_month - timedelta(days=1)
-
-            range_start = max(start_date, month_start)
-            range_end = min(end_date, month_end)
-            if range_start <= range_end:
-                periods.append(f"{range_start:%Y-%m-%d},{range_end:%Y-%m-%d}")
-
-            cur = next_month
+        while cur <= end_date:
+            # Store just the start date for this period
+            periods.append(f"{cur:%Y-%m-%d}")
+            # Move forward by 14 days for next period
+            cur = cur + timedelta(days=14)
 
         return periods
 
